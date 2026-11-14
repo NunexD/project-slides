@@ -1,0 +1,128 @@
+[
+  {
+    "objectID": "index.html#what-are-steering-behaviours",
+    "href": "index.html#what-are-steering-behaviours",
+    "title": "Steering Behaviours",
+    "section": "What Are Steering Behaviours?",
+    "text": "What Are Steering Behaviours?\nSteering behaviors are a suite of algorithms used to make playable characters and AIs move smoothly in various ways: following a target, slowing down when arriving at a location, following a path, following each other in a queue, etc."
+  },
+  {
+    "objectID": "index.html#how-does-it-work",
+    "href": "index.html#how-does-it-work",
+    "title": "Steering Behaviours",
+    "section": "How does it work?",
+    "text": "How does it work?"
+  },
+  {
+    "objectID": "index.html#the-steering-model",
+    "href": "index.html#the-steering-model",
+    "title": "Steering Behaviours",
+    "section": "The Steering Model",
+    "text": "The Steering Model\n[Describe the layered model: action selection, steering, locomotion.]\n\n[Diagram: action selection → steering → locomotion]"
+  },
+  {
+    "objectID": "index.html#vectors-and-kinematics",
+    "href": "index.html#vectors-and-kinematics",
+    "title": "Steering Behaviours",
+    "section": "Vectors and Kinematics",
+    "text": "Vectors and Kinematics\n[Explain position, velocity, and acceleration vectors here.]\n\n\\[\\mathbf{p}_{t+1} = \\mathbf{p}_t + \\mathbf{v}_t\\,\\Delta t\\]\n\n\n[Notes on notation.]"
+  },
+  {
+    "objectID": "index.html#steering-force-and-truncation",
+    "href": "index.html#steering-force-and-truncation",
+    "title": "Steering Behaviours",
+    "section": "Steering Force and Truncation",
+    "text": "Steering Force and Truncation\n[Explain steering = desired velocity − current velocity.]\n\n\\[\\mathbf{F}_{steer} = \\mathbf{v}_{desired} - \\mathbf{v}\\]\n\n\n\n\n[Explain truncation by maximum force and speed.]"
+  },
+  {
+    "objectID": "index.html#seek-and-flee",
+    "href": "index.html#seek-and-flee",
+    "title": "Steering Behaviours",
+    "section": "Seek and Flee",
+    "text": "Seek and Flee\n\n\nSeek\n[Explain the seek behaviour here.]\n\nFlee\n[Explain the flee behaviour here.]"
+  },
+  {
+    "objectID": "index.html#arrive",
+    "href": "index.html#arrive",
+    "title": "Steering Behaviours",
+    "section": "Arrive",
+    "text": "Arrive\n[Explain the arrive behaviour here.]\n\n[Diagram: slowing radius around the target]"
+  },
+  {
+    "objectID": "index.html#pursuit-and-evade",
+    "href": "index.html#pursuit-and-evade",
+    "title": "Steering Behaviours",
+    "section": "Pursuit and Evade",
+    "text": "Pursuit and Evade\n[Explain the pursuit and evade behaviours here.]\n\n[Diagram: predicting the target’s future position]"
+  },
+  {
+    "objectID": "index.html#wander-and-obstacle-avoidance",
+    "href": "index.html#wander-and-obstacle-avoidance",
+    "title": "Steering Behaviours",
+    "section": "Wander and Obstacle Avoidance",
+    "text": "Wander and Obstacle Avoidance\n\n\nWander\n[Explain the wander behaviour here.]\n\nObstacle Avoidance\n[Explain the obstacle avoidance behaviour here.]"
+  },
+  {
+    "objectID": "index.html#code-example-seek",
+    "href": "index.html#code-example-seek",
+    "title": "Steering Behaviours",
+    "section": "Code Example: Seek",
+    "text": "Code Example: Seek\n\nfunction seek(agent, target) {\n  // [Replace with your implementation]\n  const desired = normalize(sub(target, agent.pos));\n  return sub(scale(desired, agent.maxSpeed), agent.vel);\n}\n\n[Explain the code here.]"
+  },
+  {
+    "objectID": "index.html#separation-alignment-cohesion",
+    "href": "index.html#separation-alignment-cohesion",
+    "title": "Steering Behaviours",
+    "section": "Separation, Alignment, Cohesion",
+    "text": "Separation, Alignment, Cohesion\n\n\nSeparation\n[Explain here.]\n\nAlignment\n[Explain here.]\n\nCohesion\n[Explain here.]"
+  },
+  {
+    "objectID": "index.html#flocking-code-and-visualization",
+    "href": "index.html#flocking-code-and-visualization",
+    "title": "Steering Behaviours",
+    "section": "Flocking: Code and Visualization",
+    "text": "Flocking: Code and Visualization\n\n\n\nfunction flock(agent, neighbours) {\n  // [Replace with your implementation]\n  return add(separation(agent, neighbours),\n             alignment(agent, neighbours),\n             cohesion(agent, neighbours));\n}"
+  },
+  {
+    "objectID": "index.html#weighted-blending",
+    "href": "index.html#weighted-blending",
+    "title": "Steering Behaviours",
+    "section": "Weighted Blending",
+    "text": "Weighted Blending\n[Explain weighted sums of steering forces here.]\n\n\\[\\mathbf{F} = \\sum_i w_i\\,\\mathbf{F}_i\\]"
+  },
+  {
+    "objectID": "index.html#prioritization-and-arbitration",
+    "href": "index.html#prioritization-and-arbitration",
+    "title": "Steering Behaviours",
+    "section": "Prioritization and Arbitration",
+    "text": "Prioritization and Arbitration\n\n\nPriority-based\n[Explain here.]\n\nWeighted truncated sum\n[Explain here.]"
+  },
+  {
+    "objectID": "index.html#interactive-simulation",
+    "href": "index.html#interactive-simulation",
+    "title": "Steering Behaviours",
+    "section": "Interactive Simulation",
+    "text": "Interactive Simulation\n\n\n\n\n\n[Replace the canvas drawing in scripts.js with your simulation.]"
+  },
+  {
+    "objectID": "index.html#summary",
+    "href": "index.html#summary",
+    "title": "Steering Behaviours",
+    "section": "Summary",
+    "text": "Summary\n\n[Takeaway 1]\n[Takeaway 2]\n[Takeaway 3]\n\n\n\n\n[Closing remark or open question.]"
+  },
+  {
+    "objectID": "index.html#references",
+    "href": "index.html#references",
+    "title": "Steering Behaviours",
+    "section": "References",
+    "text": "References\n\n\n[Reference 1]\n[Reference 2]\n[Reference 3]"
+  },
+  {
+    "objectID": "index.html#questions",
+    "href": "index.html#questions",
+    "title": "Steering Behaviours",
+    "section": "Questions?",
+    "text": "Questions?\n   Thank you for your attention!"
+  }
+]
