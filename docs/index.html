@@ -244,16 +244,21 @@ HOW TO REUSE
 </section>
 <section id="how-does-it-work" class="slide level2">
 <h2>How does it work?</h2>
-<video autoplay="" loop="" muted="" playsinline="" style="width: 70%; max-height: 500px; object-fit: contain;">
+<video autoplay loop muted playsinline style="width: 70%; max-height: 500px; object-fit: contain;">
 <source src="videos/steering_behaviors.mp4" type="video/mp4">
 </video>
 </section>
 <section id="the-steering-model" class="slide level2">
-<h2>The Steering Model</h2>
-<p>[Describe the layered model: action selection, steering, locomotion.]</p>
-<div class="diagram-placeholder">
-<p>[Diagram: action selection → steering → locomotion]</p>
-</div>
+    <h2>The Steering Model</h2>
+    <p>The behavior of an autonomous character is divided into 3 layers. Turned into a hiearchy of three layers:</p>
+    <ul>
+        <li>Action selection (strategy, goals, planning)</li>
+        <li>Steering (path determination)</li>
+        <li>Locomotion (animation, articulation)</li>
+    </ul>
+    <div class="diagram-placeholder">
+        <p>[Diagram: action selection → steering → locomotion]</p>
+    </div>
 </section></section>
 <section>
 <section id="mathematical-foundations" class="title-slide slide level1 section-divider center">
@@ -287,18 +292,23 @@ HOW TO REUSE
 <section>
 <section id="individual-behaviours" class="title-slide slide level1 section-divider center">
 <h1>Individual Behaviours</h1>
-<p>[One-line overview of this section.]</p>
+<p>What are the common type of steering behaviours?</p>
 </section>
 <section id="seek-and-flee" class="slide level2">
-<h2>Seek and Flee</h2>
-<div class="columns">
-<div class="column">
-<h3 id="seek">Seek</h3>
-<p>[Explain the seek behaviour here.]</p>
-</div><div class="column">
-<h3 id="flee">Flee</h3>
-<p>[Explain the flee behaviour here.]</p>
-</div></div>
+    <h2>Seek and Flee</h2>
+    <div class="columns">
+        <div class="column">
+            <h3 id="seek">Seek</h3>
+            <p>Moves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target</p>
+        <br />
+            <img src="gifs/seekflee.gif" style="width: 85%; max-height: 400px; object-fit: contain;" />
+        </div><div class="column">
+    <h3 id="flee">Flee</h3>
+    <p>Is the inverse of Seek and makes the character's desired velocity point in the opposite direction of the target</p>
+        <br />
+    <img src="img/seekflee.png" style="width: 70%; max-height: 300px; object-fit: contain;" />
+</div>
+    </div>
 </section>
 <section id="arrive" class="slide level2">
 <h2>Arrive</h2>
