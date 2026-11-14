@@ -226,21 +226,16 @@ HOW TO REUSE
 <section>
 <section id="introduction" class="title-slide slide level1 section-divider center">
 <h1>Introduction</h1>
-<p>[One-line overview of this section.]</p>
+<p>Algorithms that help autonomous characters move in a more realistic and intelligent way.</p>
 </section>
 <section id="what-are-steering-behaviours" class="slide level2">
 <h2>What Are Steering Behaviours?</h2>
-<p>Steering behaviors are a suite of algorithms used to make playable characters and AIs move smoothly in various ways: following a target, slowing down when arriving at a location, following a path, following each other in a queue, etc. <!--
-
-- [Key point 1]
-- [Key point 2]
-- [Key point 3]
-
-::: {.callout}
-**Note:** [Optional remark or definition.]
-:::
-
---></p>
+<p>Steering behaviors are algorithms that help autonomous characters move in a more realistic and intelligent way.</p>
+<ul>
+<li>Decide when to move smoothly, accelerate, decelerate, or navigate around the environment.</li>
+<li>Avoid heavy pathfinding or physics engines by using simple local mathematics and vector calculations.</li>
+<li>Highly CPU efficient, allowing integration into mobile games without performance issues.</li>
+</ul>
 </section>
 <section id="how-does-it-work" class="slide level2">
 <h2>How does it work?</h2>
@@ -250,12 +245,7 @@ HOW TO REUSE
 </section>
 <section id="the-steering-model" class="slide level2">
 <h2>The Steering Model</h2>
-<p>The behavior of an autonomous character is divided into 3 layers. Turned into a hiearchy of three layers:</p>
-<ul>
-<li>Action selection (strategy, goals, planning)</li>
-<li>Steering (path determination)</li>
-<li>Locomotion (animation, articulation)</li>
-</ul>
+<p>[Describe the layered model: action selection, steering, locomotion.]</p>
 <div class="diagram-placeholder">
 <p>[Diagram: action selection → steering → locomotion]</p>
 </div>
@@ -263,7 +253,7 @@ HOW TO REUSE
 <section>
 <section id="mathematical-foundations" class="title-slide slide level1 section-divider center">
 <h1>Mathematical Foundations</h1>
-<p>[One-line overview of this section.]</p>
+<p>Simple local mathematics and vector calculations for realistic movement.</p>
 </section>
 <section id="vectors-and-kinematics" class="slide level2">
 <h2>Vectors and Kinematics</h2>
@@ -292,43 +282,49 @@ HOW TO REUSE
 <section>
 <section id="individual-behaviours" class="title-slide slide level1 section-divider center">
 <h1>Individual Behaviours</h1>
-<p>[One-line overview of this section.]</p>
+<p>Core local steering behaviours for single-agent navigation.</p>
 </section>
 <section id="seek-and-flee" class="slide level2">
 <h2>Seek and Flee</h2>
 <div class="columns">
 <div class="column">
 <h3 id="seek">Seek</h3>
-<p>Moves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target. <img src="gifs/seekflee.gif"></p>
+<p>Moves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target.</p>
 </div><div class="column">
 <h3 id="flee">Flee</h3>
-<p>Is the inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target. <img src="img/seekflee.png"></p>
+<p>The inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target.</p>
 </div></div>
 </section>
 <section id="arrive" class="slide level2">
 <h2>Arrive</h2>
-<p>It’s identical to seek when far from its target. But when the character approaches its target, it begins to slow down to stop more smoothly. <img src="gifs/arrive.gif" style="width: 70%; max-height: 400px; object-fit: contain;"></p>
+<p>Identical to seek when far from its target. But when the character approaches its target it begins to slow down to stop more smoothly.</p>
+<div class="diagram-placeholder">
+<p>[Diagram: slowing radius around the target]</p>
+</div>
 </section>
-<section id="pursuit-and-evasion" class="slide level2">
-<h2>Pursuit and Evasion</h2>
+<section id="pursuit-and-evade" class="slide level2">
+<h2>Pursuit and Evade</h2>
 <div class="columns">
 <div class="column">
 <h3 id="pursuit">Pursuit</h3>
-<p>Is similar to seek, but it predicts the future position of the target based on its current velocity and adjusts the character’s desired velocity accordingly. <img src="gifs/pursuit.gif"></p>
+<p>Similar to Seek but the character chases another moving character, attempts to predict where they are headed and tries to cut them off instead of just following the target.</p>
 </div><div class="column">
 <h3 id="evasion">Evasion</h3>
-<p>Is the inverse of pursuit and makes the character’s desired velocity point in the opposite direction of the predicted future position of the target. <img src="gifs/evasion.gif"></p>
+<p>The opposite of pursuit, the character tries to escape from other character, while trying to predict the target’s movement and adapt.</p>
 </div></div>
+<div class="diagram-placeholder">
+<p>[Diagram: predicting the target’s future position]</p>
+</div>
 </section>
 <section id="wander-and-obstacle-avoidance" class="slide level2">
 <h2>Wander and Obstacle Avoidance</h2>
 <div class="columns">
 <div class="column">
 <h3 id="wander">Wander</h3>
-<p>Type of random steering, the character moves randomly within a certain area. <img src="gifs/wander.gif" style="width: 70%; max-height: 400px; object-fit: contain;"></p>
+<p>A type of random steering, the character moves randomly within a certain area.</p>
 </div><div class="column">
 <h3 id="obstacle-avoidance">Obstacle Avoidance</h3>
-<p>[Explain the obstacle avoidance behaviour here.]</p>
+<p>The character manoeuvres through the environment by dodging around obstacles, takes action only when a nearby obstacle is in front of the character.</p>
 </div></div>
 </section>
 <section id="code-example-seek" class="slide level2">
@@ -341,28 +337,42 @@ HOW TO REUSE
 <span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <p>[Explain the code here.]</p>
+</section>
+<section id="additional-individual-behaviours" class="slide level2">
+<h2>Additional Individual Behaviours</h2>
+<div class="columns">
+<div class="column">
+<h3 id="follow-path">Follow Path</h3>
+<p>A character steers along a predetermined path, moves through a series of points along the path. The goal is to move the character along the path while staying within the specified radius.</p>
+</div><div class="column">
+<h3 id="flow-field-following">Flow Field Following</h3>
+<p>Directs the motion of characters based on their position within an environment.</p>
+</div></div>
+<h3 id="unaligned-collision-avoidance">Unaligned Collision Avoidance</h3>
+<p>Tries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck.</p>
 </section></section>
 <section>
 <section id="group-behaviours" class="title-slide slide level1 section-divider center">
 <h1>Group Behaviours</h1>
-<p>[One-line overview of this section.]</p>
+<p>Coordinated movement across multiple nearby characters.</p>
 </section>
 <section id="separation-alignment-cohesion" class="slide level2">
 <h2>Separation, Alignment, Cohesion</h2>
 <div class="columns">
 <div class="column">
 <h3 id="separation">Separation</h3>
-<p>[Explain here.]</p>
+<p>The character maintains a separation distance from other characters nearby to prevent crowding.</p>
 </div><div class="column">
 <h3 id="alignment">Alignment</h3>
-<p>[Explain here.]</p>
+<p>The character gains the ability to align its direction and speed with other characters nearby to have the same pace.</p>
 </div><div class="column">
 <h3 id="cohesion">Cohesion</h3>
-<p>[Explain here.]</p>
+<p>The character gains the ability to approach and form a group with other characters nearby.</p>
 </div></div>
 </section>
 <section id="flocking-code-and-visualization" class="slide level2">
 <h2>Flocking: Code and Visualization</h2>
+<p>Flocking simulates the movement of characters that are grouped together, combining Separation, Cohesion, and Alignment behaviors to replicate birds or fish flocks, for example.</p>
 <div class="columns center-v">
 <div class="column">
 <div class="code-example">
@@ -375,61 +385,52 @@ HOW TO REUSE
 </div>
 </div><div class="column">
 <div class="diagram-placeholder">
-<svg viewbox="0 0 200 120" width="100%" aria-label="Placeholder agents">
-<g fill="#38bdf8"> <polygon points="40,60 24,52 24,68"></polygon> <polygon points="80,40 64,32 64,48"></polygon> <polygon points="90,85 74,77 74,93"></polygon> <polygon points="130,60 114,52 114,68"></polygon> </g> <circle cx="90" cy="62" r="50" fill="none" stroke="#22314d" stroke-dasharray="4 4"></circle>
-</svg>
+<p>[Diagram: flocking visualization]</p>
 </div>
 </div></div>
+</section>
+<section id="leader-following" class="slide level2">
+<h2>Leader Following</h2>
+<p>Makes one or more characters follow another moving character as their leader, staying near them without getting in their way.</p>
 </section></section>
 <section>
 <section id="combining-behaviours" class="title-slide slide level1 section-divider center">
 <h1>Combining Behaviours</h1>
-<p>[One-line overview of this section.]</p>
+<p>A character may switch between behavior modes as circumstances change in the game, such as events.</p>
 </section>
 <section id="weighted-blending" class="slide level2">
 <h2>Weighted Blending</h2>
-<p>[Explain weighted sums of steering forces here.]</p>
+<p>Some behaviors are commonly blended together and effectively act in parallel. A good example is when an animal NPC is running through the woods escaping a predator: this NPC can use the flee and obstacle avoidance behaviors to navigate effectively.</p>
 <div class="equation">
 <p><span class="math display">\[\mathbf{F} = \sum_i w_i\,\mathbf{F}_i\]</span></p>
 </div>
-</section>
-<section id="prioritization-and-arbitration" class="slide level2">
-<h2>Prioritization and Arbitration</h2>
-<div class="columns">
-<div class="column">
-<h3 id="priority-based">Priority-based</h3>
-<p>[Explain here.]</p>
-</div><div class="column">
-<h3 id="weighted-truncated-sum">Weighted truncated sum</h3>
-<p>[Explain here.]</p>
-</div></div>
 </section></section>
 <section>
 <section id="demonstration" class="title-slide slide level1 section-divider center">
 <h1>Demonstration</h1>
-<p>[One-line overview of this section.]</p>
+<p>Interactive steering behaviours in action.</p>
 </section>
 <section id="interactive-simulation" class="slide level2">
 <h2>Interactive Simulation</h2>
 <div class="center-content">
-<canvas class="sim-frame" data-demo="seek" width="1100" height="480">
+<canvas id="steering-canvas" width="900" height="450">
 </canvas>
 </div>
 <div class="small-text muted">
-<p>[Replace the canvas drawing in <code>scripts.js</code> with your simulation.]</p>
+<p>[Replace the canvas drawing in scripts.js with your simulation.]</p>
 </div>
 </section></section>
 <section>
 <section id="conclusion" class="title-slide slide level1 section-divider center">
 <h1>Conclusion</h1>
-<p>[One-line overview of this section.]</p>
+<p>Why use steering behaviours and where they appear in games.</p>
 </section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
 <ul>
-<li>[Takeaway 1]</li>
-<li>[Takeaway 2]</li>
-<li>[Takeaway 3]</li>
+<li><strong>Performance:</strong> Highly CPU efficient by using simple local mathematics and vector calculations—ideal even for mobile games.</li>
+<li><strong>Realism:</strong> Movement can be very realistic due to velocity and path changes, with many different NPC actions when behaviors are combined.</li>
+<li><strong>Use Cases:</strong> Used across many genres with large numbers of NPCs—Racing (AI opponents/traffic), Driving (AI traffic), Action, Role-Playing, and Open-World games.</li>
 </ul>
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
@@ -442,16 +443,15 @@ HOW TO REUSE
 <section id="references" class="slide level2">
 <h2>References</h2>
 <div class="small-text">
-<ol type="1">
+<ul>
 <li>[Reference 1]</li>
 <li>[Reference 2]</li>
 <li>[Reference 3]</li>
-</ol>
+</ul>
 </div>
 </section>
 <section id="questions" class="slide level2 center-content">
 <h2>Questions?</h2>
-<p><br> <br> <br> Thank you for your attention!</p>
 
 
 </section></section>
@@ -678,7 +678,7 @@ HOW TO REUSE
         });
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
+            var filterRegex = new RegExp("https:\/\/NunexD\.github\.io\/project-slides\/");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
