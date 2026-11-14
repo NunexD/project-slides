@@ -250,7 +250,12 @@ HOW TO REUSE
 </section>
 <section id="the-steering-model" class="slide level2">
 <h2>The Steering Model</h2>
-<p>[Describe the layered model: action selection, steering, locomotion.]</p>
+<p>The behavior of an autonomous character is divided into 3 layers. Turned into a hiearchy of three layers:</p>
+<ul>
+<li>Action selection (strategy, goals, planning)</li>
+<li>Steering (path determination)</li>
+<li>Locomotion (animation, articulation)</li>
+</ul>
 <div class="diagram-placeholder">
 <p>[Diagram: action selection → steering → locomotion]</p>
 </div>
@@ -294,32 +299,33 @@ HOW TO REUSE
 <div class="columns">
 <div class="column">
 <h3 id="seek">Seek</h3>
-<p>[Explain the seek behaviour here.]</p>
+<p>Moves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target. <img src="gifs/seekflee.gif"></p>
 </div><div class="column">
 <h3 id="flee">Flee</h3>
-<p>[Explain the flee behaviour here.]</p>
+<p>Is the inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target. <img src="img/seekflee.png"></p>
 </div></div>
 </section>
 <section id="arrive" class="slide level2">
 <h2>Arrive</h2>
-<p>[Explain the arrive behaviour here.]</p>
-<div class="diagram-placeholder">
-<p>[Diagram: slowing radius around the target]</p>
-</div>
+<p>It’s identical to seek when far from its target. But when the character approaches its target, it begins to slow down to stop more smoothly. <img src="gifs/arrive.gif" style="width: 70%; max-height: 400px; object-fit: contain;"></p>
 </section>
-<section id="pursuit-and-evade" class="slide level2">
-<h2>Pursuit and Evade</h2>
-<p>[Explain the pursuit and evade behaviours here.]</p>
-<div class="diagram-placeholder">
-<p>[Diagram: predicting the target’s future position]</p>
-</div>
+<section id="pursuit-and-evasion" class="slide level2">
+<h2>Pursuit and Evasion</h2>
+<div class="columns">
+<div class="column">
+<h3 id="pursuit">Pursuit</h3>
+<p>Is similar to seek, but it predicts the future position of the target based on its current velocity and adjusts the character’s desired velocity accordingly. <img src="gifs/pursuit.gif"></p>
+</div><div class="column">
+<h3 id="evasion">Evasion</h3>
+<p>Is the inverse of pursuit and makes the character’s desired velocity point in the opposite direction of the predicted future position of the target. <img src="gifs/evasion.gif"></p>
+</div></div>
 </section>
 <section id="wander-and-obstacle-avoidance" class="slide level2">
 <h2>Wander and Obstacle Avoidance</h2>
 <div class="columns">
 <div class="column">
 <h3 id="wander">Wander</h3>
-<p>[Explain the wander behaviour here.]</p>
+<p>Type of random steering, the character moves randomly within a certain area. <img src="gifs/wander.gif" style="width: 70%; max-height: 400px; object-fit: contain;"></p>
 </div><div class="column">
 <h3 id="obstacle-avoidance">Obstacle Avoidance</h3>
 <p>[Explain the obstacle avoidance behaviour here.]</p>
@@ -672,7 +678,7 @@ HOW TO REUSE
         });
           var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
           var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp('/' + window.location.host + '/');
+            var filterRegex = new RegExp("https:\/\/NunexD\.github\.io\/project-slides\/");
           var isInternal = (href) => {
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
