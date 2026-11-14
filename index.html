@@ -290,17 +290,22 @@ HOW TO REUSE
 <div class="column">
 <h3 id="seek">Seek</h3>
 <p>Moves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target.</p>
+<p><img src="gifs/seekflee.gif" alt="Seek and Flee behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
 </div><div class="column">
 <h3 id="flee">Flee</h3>
 <p>The inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target.</p>
+<p><img src="img/seekflee.png" alt="Seek and Flee behaviour" style="width: 100%; max-width: 400px; object-fit: contain;"></p>
 </div></div>
 </section>
 <section id="arrive" class="slide level2">
 <h2>Arrive</h2>
 <p>Identical to seek when far from its target. But when the character approaches its target it begins to slow down to stop more smoothly.</p>
-<div class="diagram-placeholder">
-<p>[Diagram: slowing radius around the target]</p>
-</div>
+<div class="columns">
+<div class="column">
+<p><img src="gifs/arrive.gif" alt="Arrive behaviour" style="width: 70%; max-width: 500px; object-fit: contain;"></p>
+</div><div class="column">
+<p><img src="img/arrival.png" alt="Arrive behaviour" style="width: 70%; max-width: 370px; object-fit: contain;"></p>
+</div></div>
 </section>
 <section id="pursuit-and-evade" class="slide level2">
 <h2>Pursuit and Evade</h2>
@@ -312,19 +317,51 @@ HOW TO REUSE
 <h3 id="evasion">Evasion</h3>
 <p>The opposite of pursuit, the character tries to escape from other character, while trying to predict the target’s movement and adapt.</p>
 </div></div>
-<div class="diagram-placeholder">
-<p>[Diagram: predicting the target’s future position]</p>
-</div>
-</section>
-<section id="wander-and-obstacle-avoidance" class="slide level2">
-<h2>Wander and Obstacle Avoidance</h2>
 <div class="columns">
 <div class="column">
-<h3 id="wander">Wander</h3>
-<p>A type of random steering, the character moves randomly within a certain area.</p>
+<p><img src="gifs/pursuit.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
 </div><div class="column">
-<h3 id="obstacle-avoidance">Obstacle Avoidance</h3>
+<p><img src="gifs/evasion.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
+</div></div>
+</section>
+<section id="wander" class="slide level2">
+<h2>Wander</h2>
+<p>A type of random steering, the character moves randomly within a certain area.</p>
+<div class="columns">
+<div class="column">
+<p><img src="gifs/wander.gif" alt="Wander behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
+</div><div class="column">
+<p><img src="img/wander.png" alt="Wander behaviour" style="width: 100%; max-width: 400px; object-fit: contain;"></p>
+</div></div>
+</section>
+<section id="obstacle-avoidance" class="slide level2">
+<h2>Obstacle Avoidance</h2>
 <p>The character manoeuvres through the environment by dodging around obstacles, takes action only when a nearby obstacle is in front of the character.</p>
+<div class="columns">
+<div class="column">
+<p><img src="gifs/obstacleavoidance.gif" alt="Obstacle Avoidance behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
+</div><div class="column">
+<p><img src="img/obstacleavoidance.png" alt="Obstacle Avoidance behaviour" style="width: 100%; max-width: 400px; object-fit: contain;"></p>
+</div></div>
+</section>
+<section id="follow-path" class="slide level2">
+<h2>Follow Path</h2>
+<p>A character steers along a predetermined path, moves through a series of points along the path. The goal is to move the character along the path while staying within the specified radius.</p>
+<div class="columns">
+<div class="column">
+<p><img src="gifs/pathfollow.gif" alt="Follow Path behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
+</div><div class="column">
+<p><img src="img/pathfollow.png" alt="Follow path behaviour" style="width: 100%; max-width: 400px; object-fit: contain;"></p>
+</div></div>
+</section>
+<section id="flow-field-following" class="slide level2">
+<h2>Flow Field Following</h2>
+<p>Directs the motion of characters based on their position within an environment.</p>
+<div class="columns">
+<div class="column">
+<p><img src="img/flowfollow.png" alt="Flow Field Following behaviour" style="width: 100%; max-width: 460px; object-fit: contain;"></p>
+</div><div class="column">
+<p><img src="img/flowfollow2.png" alt="Flow Field Following behaviour" style="width: 100%; max-width: 550px; object-fit: contain;"></p>
 </div></div>
 </section>
 <section id="code-example-seek" class="slide level2">
@@ -342,10 +379,7 @@ HOW TO REUSE
 <h2>Additional Individual Behaviours</h2>
 <div class="columns">
 <div class="column">
-<h3 id="follow-path">Follow Path</h3>
-<p>A character steers along a predetermined path, moves through a series of points along the path. The goal is to move the character along the path while staying within the specified radius.</p>
-</div><div class="column">
-<h3 id="flow-field-following">Flow Field Following</h3>
+<h3 id="flow-field-following-1">Flow Field Following</h3>
 <p>Directs the motion of characters based on their position within an environment.</p>
 </div></div>
 <h3 id="unaligned-collision-avoidance">Unaligned Collision Avoidance</h3>
