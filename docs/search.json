@@ -18,7 +18,7 @@
     "href": "index.html#the-steering-model",
     "title": "Steering Behaviours",
     "section": "The Steering Model",
-    "text": "The Steering Model\n[Describe the layered model: action selection, steering, locomotion.]\n\n[Diagram: action selection → steering → locomotion]"
+    "text": "The Steering Model\nThe behavior of an autonomous character is divided into 3 layers. Turned into a hiearchy of three layers:\n\nAction selection (strategy, goals, planning)\nSteering (path determination)\nLocomotion (animation, articulation)\n\n\n[Diagram: action selection → steering → locomotion]"
   },
   {
     "objectID": "index.html#vectors-and-kinematics",
@@ -39,28 +39,28 @@
     "href": "index.html#seek-and-flee",
     "title": "Steering Behaviours",
     "section": "Seek and Flee",
-    "text": "Seek and Flee\n\n\nSeek\n[Explain the seek behaviour here.]\n\nFlee\n[Explain the flee behaviour here.]"
+    "text": "Seek and Flee\n\n\nSeek\nMoves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target. \n\nFlee\nIs the inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target."
   },
   {
     "objectID": "index.html#arrive",
     "href": "index.html#arrive",
     "title": "Steering Behaviours",
     "section": "Arrive",
-    "text": "Arrive\n[Explain the arrive behaviour here.]\n\n[Diagram: slowing radius around the target]"
+    "text": "Arrive\nIt’s identical to seek when far from its target. But when the character approaches its target, it begins to slow down to stop more smoothly."
   },
   {
-    "objectID": "index.html#pursuit-and-evade",
-    "href": "index.html#pursuit-and-evade",
+    "objectID": "index.html#pursuit-and-evasion",
+    "href": "index.html#pursuit-and-evasion",
     "title": "Steering Behaviours",
-    "section": "Pursuit and Evade",
-    "text": "Pursuit and Evade\n[Explain the pursuit and evade behaviours here.]\n\n[Diagram: predicting the target’s future position]"
+    "section": "Pursuit and Evasion",
+    "text": "Pursuit and Evasion\n\n\nPursuit\nIs similar to seek, but it predicts the future position of the target based on its current velocity and adjusts the character’s desired velocity accordingly. \n\nEvasion\nIs the inverse of pursuit and makes the character’s desired velocity point in the opposite direction of the predicted future position of the target."
   },
   {
     "objectID": "index.html#wander-and-obstacle-avoidance",
     "href": "index.html#wander-and-obstacle-avoidance",
     "title": "Steering Behaviours",
     "section": "Wander and Obstacle Avoidance",
-    "text": "Wander and Obstacle Avoidance\n\n\nWander\n[Explain the wander behaviour here.]\n\nObstacle Avoidance\n[Explain the obstacle avoidance behaviour here.]"
+    "text": "Wander and Obstacle Avoidance\n\n\nWander\nType of random steering, the character moves randomly within a certain area. \n\nObstacle Avoidance\n[Explain the obstacle avoidance behaviour here.]"
   },
   {
     "objectID": "index.html#code-example-seek",

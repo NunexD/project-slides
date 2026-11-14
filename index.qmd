@@ -67,7 +67,11 @@ Steering behaviors are a suite of algorithms used to make playable characters an
 
 ## The Steering Model
 
-[Describe the layered model: action selection, steering, locomotion.]
+The behavior of an autonomous character is divided into 3 layers. Turned into a hiearchy of three layers:
+
+- Action selection (strategy, goals, planning)
+- Steering (path determination)
+- Locomotion (animation, articulation)
 
 ::: {.diagram-placeholder}
 [Diagram: action selection → steering → locomotion]
@@ -111,29 +115,37 @@ $$\mathbf{F}_{steer} = \mathbf{v}_{desired} - \mathbf{v}$$
 ::: {.column}
 ### Seek
 
-[Explain the seek behaviour here.]
+Moves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target.
+<img src="gifs/seekflee.gif">
 :::
 ::: {.column}
 ### Flee
 
-[Explain the flee behaviour here.]
+Is the inverse of Seek and makes the character's desired velocity point in the opposite direction of the target.
+<img src="img/seekflee.png">
 :::
 :::
 
 ## Arrive
 
-[Explain the arrive behaviour here.]
+It's identical to seek when far from its target. But when the character approaches its target, it begins to slow down to stop more smoothly.
+<img src="gifs/arrive.gif" style="width: 70%; max-height: 400px; object-fit: contain;">
 
-::: {.diagram-placeholder}
-[Diagram: slowing radius around the target]
+## Pursuit and Evasion
+
+::: {.columns}
+::: {.column}
+### Pursuit
+
+Is similar to seek, but it predicts the future position of the target based on its current velocity and adjusts the character's desired velocity accordingly.
+<img src="gifs/pursuit.gif">
 :::
+::: {.column}
+### Evasion
+Is the inverse of pursuit and makes the character's desired velocity point in the opposite direction of the predicted future position of the target.
+<img src="gifs/evasion.gif">
 
-## Pursuit and Evade
-
-[Explain the pursuit and evade behaviours here.]
-
-::: {.diagram-placeholder}
-[Diagram: predicting the target's future position]
+:::
 :::
 
 ## Wander and Obstacle Avoidance
@@ -142,7 +154,8 @@ $$\mathbf{F}_{steer} = \mathbf{v}_{desired} - \mathbf{v}$$
 ::: {.column}
 ### Wander
 
-[Explain the wander behaviour here.]
+Type of random steering, the character moves randomly within a certain area.
+<img src="gifs/wander.gif" style="width: 70%; max-height: 400px; object-fit: contain;">
 :::
 ::: {.column}
 ### Obstacle Avoidance

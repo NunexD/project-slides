@@ -1,0 +1,12 @@
+/.quarto/
+**/*.quarto_ipynb
+/.vs/project-slides/CopilotIndices/17.14.1584.41681
+.vs/project-slides/FileContentIndex/193e616b-8df1-440d-85d9-7414271d4ad0.vsidx
+.vs/project-slides/FileContentIndex/4293225e-93eb-43a7-bef8-8cb6159a3a6a.vsidx
+.vs/project-slides/FileContentIndex/90600fe2-cfa0-4253-a7d8-3a1c5a214dd1.vsidx
+.vs/project-slides/FileContentIndex/9274f769-7fb5-42bc-8ed7-8829f696e7d6.vsidx
+.vs/project-slides/FileContentIndex/94a151de-3c16-471e-b081-42c36076bfc8.vsidx
+.vs/project-slides/FileContentIndex/5948554c-52cd-4f1e-9f12-a045a2c87800.vsidx
+.vs/project-slides/FileContentIndex/6d63bce3-658d-4e26-8011-9ed575354a58.vsidx
+.vs/project-slides/FileContentIndex/d204bff2-3a87-4df2-9e08-8d5d1106aa50.vsidx
+*.vsidx

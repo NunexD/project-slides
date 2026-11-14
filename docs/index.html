@@ -5,15 +5,15 @@
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-c70ae112d27b0643d94f3d9fd17c8844.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.10.19">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-bfab7a599fae98b034a63943fa64fa68.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.11.9">
 
   <meta name="author" content="Nuno Coelho and Francisco Morim">
-  <meta name="dcterms.date" content="2026-10-27">
+  <meta name="dcterms.date" content="2026-11-14">
   <title>My Quarto Website – Steering Behaviours</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="site_libs/revealjs/dist/reveal.css">
   <style>
@@ -101,7 +101,7 @@
     code span.vs { color: #f1fa8c; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-79190b469e16b064e75b2c6ad63624e6.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-2384c254925ee52cb5266b0048bf8fa5.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -210,7 +210,7 @@ Nuno Coelho and Francisco Morim
 </div>
 </div>
 
-  <p class="date">2026-10-27</p>
+  <p class="date">2026-11-14</p>
 </section>
 <section class="slide level2">
 
@@ -244,21 +244,21 @@ HOW TO REUSE
 </section>
 <section id="how-does-it-work" class="slide level2">
 <h2>How does it work?</h2>
-<video autoplay loop muted playsinline style="width: 70%; max-height: 500px; object-fit: contain;">
+<video autoplay="" loop="" muted="" playsinline="" style="width: 70%; max-height: 500px; object-fit: contain;">
 <source src="videos/steering_behaviors.mp4" type="video/mp4">
 </video>
 </section>
 <section id="the-steering-model" class="slide level2">
-    <h2>The Steering Model</h2>
-    <p>The behavior of an autonomous character is divided into 3 layers. Turned into a hiearchy of three layers:</p>
-    <ul>
-        <li>Action selection (strategy, goals, planning)</li>
-        <li>Steering (path determination)</li>
-        <li>Locomotion (animation, articulation)</li>
-    </ul>
-    <div class="diagram-placeholder">
-        <p>[Diagram: action selection → steering → locomotion]</p>
-    </div>
+<h2>The Steering Model</h2>
+<p>The behavior of an autonomous character is divided into 3 layers. Turned into a hiearchy of three layers:</p>
+<ul>
+<li>Action selection (strategy, goals, planning)</li>
+<li>Steering (path determination)</li>
+<li>Locomotion (animation, articulation)</li>
+</ul>
+<div class="diagram-placeholder">
+<p>[Diagram: action selection → steering → locomotion]</p>
+</div>
 </section></section>
 <section>
 <section id="mathematical-foundations" class="title-slide slide level1 section-divider center">
@@ -292,44 +292,40 @@ HOW TO REUSE
 <section>
 <section id="individual-behaviours" class="title-slide slide level1 section-divider center">
 <h1>Individual Behaviours</h1>
-<p>What are the common type of steering behaviours?</p>
+<p>[One-line overview of this section.]</p>
 </section>
 <section id="seek-and-flee" class="slide level2">
-    <h2>Seek and Flee</h2>
-    <div class="columns">
-        <div class="column">
-            <h3 id="seek">Seek</h3>
-            <p>Moves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target</p>
-        <br />
-            <img src="gifs/seekflee.gif" style="width: 85%; max-height: 400px; object-fit: contain;" />
-        </div><div class="column">
-    <h3 id="flee">Flee</h3>
-    <p>Is the inverse of Seek and makes the character's desired velocity point in the opposite direction of the target</p>
-        <br />
-    <img src="img/seekflee.png" style="width: 70%; max-height: 300px; object-fit: contain;" />
-</div>
-    </div>
+<h2>Seek and Flee</h2>
+<div class="columns">
+<div class="column">
+<h3 id="seek">Seek</h3>
+<p>Moves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target. <img src="gifs/seekflee.gif"></p>
+</div><div class="column">
+<h3 id="flee">Flee</h3>
+<p>Is the inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target. <img src="img/seekflee.png"></p>
+</div></div>
 </section>
 <section id="arrive" class="slide level2">
 <h2>Arrive</h2>
-<p>[Explain the arrive behaviour here.]</p>
-<div class="diagram-placeholder">
-<p>[Diagram: slowing radius around the target]</p>
-</div>
+<p>It’s identical to seek when far from its target. But when the character approaches its target, it begins to slow down to stop more smoothly. <img src="gifs/arrive.gif" style="width: 70%; max-height: 400px; object-fit: contain;"></p>
 </section>
-<section id="pursuit-and-evade" class="slide level2">
-<h2>Pursuit and Evade</h2>
-<p>[Explain the pursuit and evade behaviours here.]</p>
-<div class="diagram-placeholder">
-<p>[Diagram: predicting the target’s future position]</p>
-</div>
+<section id="pursuit-and-evasion" class="slide level2">
+<h2>Pursuit and Evasion</h2>
+<div class="columns">
+<div class="column">
+<h3 id="pursuit">Pursuit</h3>
+<p>Is similar to seek, but it predicts the future position of the target based on its current velocity and adjusts the character’s desired velocity accordingly. <img src="gifs/pursuit.gif"></p>
+</div><div class="column">
+<h3 id="evasion">Evasion</h3>
+<p>Is the inverse of pursuit and makes the character’s desired velocity point in the opposite direction of the predicted future position of the target. <img src="gifs/evasion.gif"></p>
+</div></div>
 </section>
 <section id="wander-and-obstacle-avoidance" class="slide level2">
 <h2>Wander and Obstacle Avoidance</h2>
 <div class="columns">
 <div class="column">
 <h3 id="wander">Wander</h3>
-<p>[Explain the wander behaviour here.]</p>
+<p>Type of random steering, the character moves randomly within a certain area. <img src="gifs/wander.gif" style="width: 70%; max-height: 400px; object-fit: contain;"></p>
 </div><div class="column">
 <h3 id="obstacle-avoidance">Obstacle Avoidance</h3>
 <p>[Explain the obstacle avoidance behaviour here.]</p>
@@ -494,7 +490,7 @@ HOW TO REUSE
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"\u003ci class=\"fas fa-gear\">\u003c/i>","content":"\u003cul class=\"slide-menu-items\">\n\u003cli class=\"slide-tool-item active\" data-item=\"0\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\">\u003ckbd>f\u003c/kbd> Fullscreen\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"1\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\">\u003ckbd>s\u003c/kbd> Speaker View\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"2\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\">\u003ckbd>o\u003c/kbd> Slide Overview\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"3\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\">\u003ckbd>e\u003c/kbd> PDF Export Mode\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"4\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\">\u003ckbd>r\u003c/kbd> Scroll View Mode\u003c/a>\u003c/li>\n\u003cli class=\"slide-tool-item\" data-item=\"5\">\u003ca href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\">\u003ckbd>?\u003c/kbd> Keyboard Help\u003c/a>\u003c/li>\n\u003c/ul>"}],"openButton":true,"openButtonLabel":"Slide menu"},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -687,7 +683,8 @@ HOW TO REUSE
               return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
           }
           // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          window.quartoDecorateExternalLinks = function (root) {
+         var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
           for (var i=0; i<links.length; i++) {
             const link = links[i];
             if (!isInternal(link.href)) {
@@ -696,8 +693,69 @@ HOW TO REUSE
               if (link.dataset.originalHref !== undefined) {
                 link.href = link.dataset.originalHref;
               }
+              if (!link.classList.contains('no-external-icon')) {
+              }
             }
           }
+          };
+          window.quartoDecorateExternalLinks(window.document);
+        // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+        // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+        const hideOnEscAndFocusOut = {
+          name: 'hideOnEscAndFocusOut',
+          defaultValue: true,
+          fn(instance) {
+            const dismiss = () => {
+              // A show scheduled by the trigger delay would otherwise reopen it
+              instance.clearDelayTimeouts();
+              instance.hide();
+            };
+            const onKeyDown = (event) => {
+              if (event.key !== 'Escape') {
+                return;
+              }
+              // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+              // except an open reveal.js slide menu, which Esc should close too.
+              // The menu handles keys only when its keyboard option is on.
+              const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+                window.Reveal.getConfig().menu?.keyboard !== false;
+              if (!menuHandlesEsc) {
+                event.stopPropagation();
+              }
+              if (instance.popper.contains(window.document.activeElement)) {
+                // Disabled while refocusing so the focus trigger does not reopen it
+                instance.disable();
+                instance.reference.focus();
+                instance.enable();
+              }
+              dismiss();
+            };
+            const onFocusOut = (event) => {
+              const target = event.relatedTarget;
+              if (target && !instance.reference.contains(target) &&
+                  !instance.popper.contains(target)) {
+                dismiss();
+              }
+            };
+            // On the trigger too: a click trigger (code-annotations: select) has no
+            // blur handling. Attached for the instance's lifetime so leaving the
+            // trigger also cancels a show still pending on the trigger delay.
+            instance.reference.addEventListener('focusout', onFocusOut);
+            return {
+              onShow() {
+                window.document.addEventListener('keydown', onKeyDown, true);
+                instance.popper.addEventListener('focusout', onFocusOut);
+              },
+              onHide() {
+                window.document.removeEventListener('keydown', onKeyDown, true);
+                instance.popper.removeEventListener('focusout', onFocusOut);
+              },
+              onDestroy() {
+                instance.reference.removeEventListener('focusout', onFocusOut);
+              },
+            };
+          },
+        };
         function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
           const config = {
             allowHTML: true,
@@ -711,6 +769,7 @@ HOW TO REUSE
             interactiveBorder: 10,
             theme: 'light-border',
             placement: 'bottom-start',
+            plugins: [hideOnEscAndFocusOut],
           };
           if (contentFn) {
             config.content = contentFn;
