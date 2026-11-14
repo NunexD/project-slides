@@ -4,7 +4,7 @@
     "href": "index.html#what-are-steering-behaviours",
     "title": "Steering Behaviours",
     "section": "What Are Steering Behaviours?",
-    "text": "What Are Steering Behaviours?\nSteering behaviors are a suite of algorithms used to make playable characters and AIs move smoothly in various ways: following a target, slowing down when arriving at a location, following a path, following each other in a queue, etc."
+    "text": "What Are Steering Behaviours?\nSteering behaviors are algorithms that help autonomous characters move in a more realistic and intelligent way.\n\nDecide when to move smoothly, accelerate, decelerate, or navigate around the environment.\nAvoid heavy pathfinding or physics engines by using simple local mathematics and vector calculations.\nHighly CPU efficient, allowing integration into mobile games without performance issues."
   },
   {
     "objectID": "index.html#how-does-it-work",
@@ -18,7 +18,7 @@
     "href": "index.html#the-steering-model",
     "title": "Steering Behaviours",
     "section": "The Steering Model",
-    "text": "The Steering Model\nThe behavior of an autonomous character is divided into 3 layers. Turned into a hiearchy of three layers:\n\nAction selection (strategy, goals, planning)\nSteering (path determination)\nLocomotion (animation, articulation)\n\n\n[Diagram: action selection → steering → locomotion]"
+    "text": "The Steering Model\n[Describe the layered model: action selection, steering, locomotion.]\n\n[Diagram: action selection → steering → locomotion]"
   },
   {
     "objectID": "index.html#vectors-and-kinematics",
@@ -39,28 +39,28 @@
     "href": "index.html#seek-and-flee",
     "title": "Steering Behaviours",
     "section": "Seek and Flee",
-    "text": "Seek and Flee\n\n\nSeek\nMoves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target. \n\nFlee\nIs the inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target."
+    "text": "Seek and Flee\n\n\nSeek\nMoves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target.\n\nFlee\nThe inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target."
   },
   {
     "objectID": "index.html#arrive",
     "href": "index.html#arrive",
     "title": "Steering Behaviours",
     "section": "Arrive",
-    "text": "Arrive\nIt’s identical to seek when far from its target. But when the character approaches its target, it begins to slow down to stop more smoothly."
+    "text": "Arrive\nIdentical to seek when far from its target. But when the character approaches its target it begins to slow down to stop more smoothly.\n\n[Diagram: slowing radius around the target]"
   },
   {
-    "objectID": "index.html#pursuit-and-evasion",
-    "href": "index.html#pursuit-and-evasion",
+    "objectID": "index.html#pursuit-and-evade",
+    "href": "index.html#pursuit-and-evade",
     "title": "Steering Behaviours",
-    "section": "Pursuit and Evasion",
-    "text": "Pursuit and Evasion\n\n\nPursuit\nIs similar to seek, but it predicts the future position of the target based on its current velocity and adjusts the character’s desired velocity accordingly. \n\nEvasion\nIs the inverse of pursuit and makes the character’s desired velocity point in the opposite direction of the predicted future position of the target."
+    "section": "Pursuit and Evade",
+    "text": "Pursuit and Evade\n\n\nPursuit\nSimilar to Seek but the character chases another moving character, attempts to predict where they are headed and tries to cut them off instead of just following the target.\n\nEvasion\nThe opposite of pursuit, the character tries to escape from other character, while trying to predict the target’s movement and adapt.\n\n\n[Diagram: predicting the target’s future position]"
   },
   {
     "objectID": "index.html#wander-and-obstacle-avoidance",
     "href": "index.html#wander-and-obstacle-avoidance",
     "title": "Steering Behaviours",
     "section": "Wander and Obstacle Avoidance",
-    "text": "Wander and Obstacle Avoidance\n\n\nWander\nType of random steering, the character moves randomly within a certain area. \n\nObstacle Avoidance\n[Explain the obstacle avoidance behaviour here.]"
+    "text": "Wander and Obstacle Avoidance\n\n\nWander\nA type of random steering, the character moves randomly within a certain area.\n\nObstacle Avoidance\nThe character manoeuvres through the environment by dodging around obstacles, takes action only when a nearby obstacle is in front of the character."
   },
   {
     "objectID": "index.html#code-example-seek",
@@ -70,32 +70,39 @@
     "text": "Code Example: Seek\n\nfunction seek(agent, target) {\n  // [Replace with your implementation]\n  const desired = normalize(sub(target, agent.pos));\n  return sub(scale(desired, agent.maxSpeed), agent.vel);\n}\n\n[Explain the code here.]"
   },
   {
+    "objectID": "index.html#additional-individual-behaviours",
+    "href": "index.html#additional-individual-behaviours",
+    "title": "Steering Behaviours",
+    "section": "Additional Individual Behaviours",
+    "text": "Additional Individual Behaviours\n\n\nFollow Path\nA character steers along a predetermined path, moves through a series of points along the path. The goal is to move the character along the path while staying within the specified radius.\n\nFlow Field Following\nDirects the motion of characters based on their position within an environment.\n\nUnaligned Collision Avoidance\nTries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck."
+  },
+  {
     "objectID": "index.html#separation-alignment-cohesion",
     "href": "index.html#separation-alignment-cohesion",
     "title": "Steering Behaviours",
     "section": "Separation, Alignment, Cohesion",
-    "text": "Separation, Alignment, Cohesion\n\n\nSeparation\n[Explain here.]\n\nAlignment\n[Explain here.]\n\nCohesion\n[Explain here.]"
+    "text": "Separation, Alignment, Cohesion\n\n\nSeparation\nThe character maintains a separation distance from other characters nearby to prevent crowding.\n\nAlignment\nThe character gains the ability to align its direction and speed with other characters nearby to have the same pace.\n\nCohesion\nThe character gains the ability to approach and form a group with other characters nearby."
   },
   {
     "objectID": "index.html#flocking-code-and-visualization",
     "href": "index.html#flocking-code-and-visualization",
     "title": "Steering Behaviours",
     "section": "Flocking: Code and Visualization",
-    "text": "Flocking: Code and Visualization\n\n\n\nfunction flock(agent, neighbours) {\n  // [Replace with your implementation]\n  return add(separation(agent, neighbours),\n             alignment(agent, neighbours),\n             cohesion(agent, neighbours));\n}"
+    "text": "Flocking: Code and Visualization\nFlocking simulates the movement of characters that are grouped together, combining Separation, Cohesion, and Alignment behaviors to replicate birds or fish flocks, for example.\n\n\n\nfunction flock(agent, neighbours) {\n  // [Replace with your implementation]\n  return add(separation(agent, neighbours),\n             alignment(agent, neighbours),\n             cohesion(agent, neighbours));\n}\n\n\n\n[Diagram: flocking visualization]"
+  },
+  {
+    "objectID": "index.html#leader-following",
+    "href": "index.html#leader-following",
+    "title": "Steering Behaviours",
+    "section": "Leader Following",
+    "text": "Leader Following\nMakes one or more characters follow another moving character as their leader, staying near them without getting in their way."
   },
   {
     "objectID": "index.html#weighted-blending",
     "href": "index.html#weighted-blending",
     "title": "Steering Behaviours",
     "section": "Weighted Blending",
-    "text": "Weighted Blending\n[Explain weighted sums of steering forces here.]\n\n\\[\\mathbf{F} = \\sum_i w_i\\,\\mathbf{F}_i\\]"
-  },
-  {
-    "objectID": "index.html#prioritization-and-arbitration",
-    "href": "index.html#prioritization-and-arbitration",
-    "title": "Steering Behaviours",
-    "section": "Prioritization and Arbitration",
-    "text": "Prioritization and Arbitration\n\n\nPriority-based\n[Explain here.]\n\nWeighted truncated sum\n[Explain here.]"
+    "text": "Weighted Blending\nSome behaviors are commonly blended together and effectively act in parallel. A good example is when an animal NPC is running through the woods escaping a predator: this NPC can use the flee and obstacle avoidance behaviors to navigate effectively.\n\n\\[\\mathbf{F} = \\sum_i w_i\\,\\mathbf{F}_i\\]"
   },
   {
     "objectID": "index.html#interactive-simulation",
@@ -109,7 +116,7 @@
     "href": "index.html#summary",
     "title": "Steering Behaviours",
     "section": "Summary",
-    "text": "Summary\n\n[Takeaway 1]\n[Takeaway 2]\n[Takeaway 3]\n\n\n\n\n[Closing remark or open question.]"
+    "text": "Summary\n\nPerformance: Highly CPU efficient by using simple local mathematics and vector calculations—ideal even for mobile games.\nRealism: Movement can be very realistic due to velocity and path changes, with many different NPC actions when behaviors are combined.\nUse Cases: Used across many genres with large numbers of NPCs—Racing (AI opponents/traffic), Driving (AI traffic), Action, Role-Playing, and Open-World games.\n\n\n\n\n[Closing remark or open question.]"
   },
   {
     "objectID": "index.html#references",
@@ -123,6 +130,6 @@
     "href": "index.html#questions",
     "title": "Steering Behaviours",
     "section": "Questions?",
-    "text": "Questions?\n   Thank you for your attention!"
+    "text": "Questions?"
   }
 ]
