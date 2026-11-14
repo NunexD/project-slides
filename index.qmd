@@ -41,22 +41,15 @@ HOW TO REUSE
 
 # Introduction {.section-divider}
 
-[One-line overview of this section.]
+Algorithms that help autonomous characters move in a more realistic and intelligent way.
 
 ## What Are Steering Behaviours?
 
-Steering behaviors are a suite of algorithms used to make playable characters and AIs move smoothly in various ways: following a target, slowing down when arriving at a location, following a path, following each other in a queue, etc.
-<!--
+Steering behaviors are algorithms that help autonomous characters move in a more realistic and intelligent way.
 
-- [Key point 1]
-- [Key point 2]
-- [Key point 3]
-
-::: {.callout}
-**Note:** [Optional remark or definition.]
-:::
-
--->
+- Decide when to move smoothly, accelerate, decelerate, or navigate around the environment.
+- Avoid heavy pathfinding or physics engines by using simple local mathematics and vector calculations.
+- Highly CPU efficient, allowing integration into mobile games without performance issues.
 
 ## How does it work?
 
@@ -67,11 +60,7 @@ Steering behaviors are a suite of algorithms used to make playable characters an
 
 ## The Steering Model
 
-The behavior of an autonomous character is divided into 3 layers. Turned into a hiearchy of three layers:
-
-- Action selection (strategy, goals, planning)
-- Steering (path determination)
-- Locomotion (animation, articulation)
+[Describe the layered model: action selection, steering, locomotion.]
 
 ::: {.diagram-placeholder}
 [Diagram: action selection → steering → locomotion]
@@ -79,7 +68,7 @@ The behavior of an autonomous character is divided into 3 layers. Turned into a 
 
 # Mathematical Foundations {.section-divider}
 
-[One-line overview of this section.]
+Simple local mathematics and vector calculations for realistic movement.
 
 ## Vectors and Kinematics
 
@@ -107,7 +96,7 @@ $$\mathbf{F}_{steer} = \mathbf{v}_{desired} - \mathbf{v}$$
 
 # Individual Behaviours {.section-divider}
 
-[One-line overview of this section.]
+Core local steering behaviours for single-agent navigation.
 
 ## Seek and Flee
 
@@ -116,36 +105,39 @@ $$\mathbf{F}_{steer} = \mathbf{v}_{desired} - \mathbf{v}$$
 ### Seek
 
 Moves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target.
-<img src="gifs/seekflee.gif">
 :::
 ::: {.column}
 ### Flee
 
-Is the inverse of Seek and makes the character's desired velocity point in the opposite direction of the target.
-<img src="img/seekflee.png">
+The inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target.
 :::
 :::
 
 ## Arrive
 
-It's identical to seek when far from its target. But when the character approaches its target, it begins to slow down to stop more smoothly.
-<img src="gifs/arrive.gif" style="width: 70%; max-height: 400px; object-fit: contain;">
+Identical to seek when far from its target. But when the character approaches its target it begins to slow down to stop more smoothly.
 
-## Pursuit and Evasion
+::: {.diagram-placeholder}
+[Diagram: slowing radius around the target]
+:::
+
+## Pursuit and Evade
 
 ::: {.columns}
 ::: {.column}
 ### Pursuit
 
-Is similar to seek, but it predicts the future position of the target based on its current velocity and adjusts the character's desired velocity accordingly.
-<img src="gifs/pursuit.gif">
+Similar to Seek but the character chases another moving character, attempts to predict where they are headed and tries to cut them off instead of just following the target.
 :::
 ::: {.column}
 ### Evasion
-Is the inverse of pursuit and makes the character's desired velocity point in the opposite direction of the predicted future position of the target.
-<img src="gifs/evasion.gif">
 
+The opposite of pursuit, the character tries to escape from other character, while trying to predict the target’s movement and adapt.
 :::
+:::
+
+::: {.diagram-placeholder}
+[Diagram: predicting the target's future position]
 :::
 
 ## Wander and Obstacle Avoidance
@@ -154,13 +146,12 @@ Is the inverse of pursuit and makes the character's desired velocity point in th
 ::: {.column}
 ### Wander
 
-Type of random steering, the character moves randomly within a certain area.
-<img src="gifs/wander.gif" style="width: 70%; max-height: 400px; object-fit: contain;">
+A type of random steering, the character moves randomly within a certain area.
 :::
 ::: {.column}
 ### Obstacle Avoidance
 
-[Explain the obstacle avoidance behaviour here.]
+The character manoeuvres through the environment by dodging around obstacles, takes action only when a nearby obstacle is in front of the character.
 :::
 :::
 
@@ -178,28 +169,52 @@ function seek(agent, target) {
 
 [Explain the code here.]
 
+## Additional Individual Behaviours
+
+::: {.columns}
+::: {.column}
+### Follow Path
+
+A character steers along a predetermined path, moves through a series of points along the path. The goal is to move the character along the path while staying within the specified radius.
+:::
+::: {.column}
+### Flow Field Following
+
+Directs the motion of characters based on their position within an environment.
+:::
+:::
+
+### Unaligned Collision Avoidance
+
+Tries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck.
+
 # Group Behaviours {.section-divider}
 
-[One-line overview of this section.]
+Coordinated movement across multiple nearby characters.
 
 ## Separation, Alignment, Cohesion
 
 ::: {.columns}
 ::: {.column}
 ### Separation
-[Explain here.]
+
+The character maintains a separation distance from other characters nearby to prevent crowding.
 :::
 ::: {.column}
 ### Alignment
-[Explain here.]
+
+The character gains the ability to align its direction and speed with other characters nearby to have the same pace.
 :::
 ::: {.column}
 ### Cohesion
-[Explain here.]
+
+The character gains the ability to approach and form a group with other characters nearby.
 :::
 :::
 
 ## Flocking: Code and Visualization
+
+Flocking simulates the movement of characters that are grouped together, combining Separation, Cohesion, and Alignment behaviors to replicate birds or fish flocks, for example.
 
 ::: {.columns .center-v}
 ::: {.column}
@@ -216,67 +231,50 @@ function flock(agent, neighbours) {
 :::
 ::: {.column}
 ::: {.diagram-placeholder}
-<svg viewBox="0 0 200 120" width="100%" aria-label="Placeholder agents">
-  <g fill="#38bdf8">
-    <polygon points="40,60 24,52 24,68"/>
-    <polygon points="80,40 64,32 64,48"/>
-    <polygon points="90,85 74,77 74,93"/>
-    <polygon points="130,60 114,52 114,68"/>
-  </g>
-  <circle cx="90" cy="62" r="50" fill="none" stroke="#22314d" stroke-dasharray="4 4"/>
-</svg>
+[Diagram: flocking visualization]
 :::
 :::
 :::
+
+## Leader Following
+
+Makes one or more characters follow another moving character as their leader, staying near them without getting in their way.
 
 # Combining Behaviours {.section-divider}
 
-[One-line overview of this section.]
+A character may switch between behavior modes as circumstances change in the game, such as events.
 
 ## Weighted Blending
 
-[Explain weighted sums of steering forces here.]
+Some behaviors are commonly blended together and effectively act in parallel. A good example is when an animal NPC is running through the woods escaping a predator: this NPC can use the flee and obstacle avoidance behaviors to navigate effectively.
 
 ::: {.equation}
 $$\mathbf{F} = \sum_i w_i\,\mathbf{F}_i$$
 :::
 
-## Prioritization and Arbitration
-
-::: {.columns}
-::: {.column}
-### Priority-based
-[Explain here.]
-:::
-::: {.column}
-### Weighted truncated sum
-[Explain here.]
-:::
-:::
-
 # Demonstration {.section-divider}
 
-[One-line overview of this section.]
+Interactive steering behaviours in action.
 
 ## Interactive Simulation
 
 ::: {.center-content}
-<canvas class="sim-frame" data-demo="seek" width="1100" height="480"></canvas>
+<canvas id="steering-canvas" width="900" height="450"></canvas>
 :::
 
 ::: {.small-text .muted}
-[Replace the canvas drawing in `scripts.js` with your simulation.]
+[Replace the canvas drawing in scripts.js with your simulation.]
 :::
 
 # Conclusion {.section-divider}
 
-[One-line overview of this section.]
+Why use steering behaviours and where they appear in games.
 
 ## Summary
 
-- [Takeaway 1]
-- [Takeaway 2]
-- [Takeaway 3]
+- **Performance:** Highly CPU efficient by using simple local mathematics and vector calculations—ideal even for mobile games.
+- **Realism:** Movement can be very realistic due to velocity and path changes, with many different NPC actions when behaviors are combined.
+- **Use Cases:** Used across many genres with large numbers of NPCs—Racing (AI opponents/traffic), Driving (AI traffic), Action, Role-Playing, and Open-World games.
 
 ::: {.callout}
 [Closing remark or open question.]
@@ -285,13 +283,9 @@ $$\mathbf{F} = \sum_i w_i\,\mathbf{F}_i$$
 ## References
 
 ::: {.small-text}
-1. [Reference 1]
-2. [Reference 2]
-3. [Reference 3]
+- [Reference 1]
+- [Reference 2]
+- [Reference 3]
 :::
 
 ## Questions? {.center-content}
-<br>
-<br>
-<br>
-Thank you for your attention!
