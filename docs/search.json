@@ -39,28 +39,49 @@
     "href": "index.html#seek-and-flee",
     "title": "Steering Behaviours",
     "section": "Seek and Flee",
-    "text": "Seek and Flee\n\n\nSeek\nMoves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target.\n\nFlee\nThe inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target."
+    "text": "Seek and Flee\n\n\nSeek\nMoves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target.\n\n\nFlee\nThe inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target."
   },
   {
     "objectID": "index.html#arrive",
     "href": "index.html#arrive",
     "title": "Steering Behaviours",
     "section": "Arrive",
-    "text": "Arrive\nIdentical to seek when far from its target. But when the character approaches its target it begins to slow down to stop more smoothly.\n\n[Diagram: slowing radius around the target]"
+    "text": "Arrive\nIdentical to seek when far from its target. But when the character approaches its target it begins to slow down to stop more smoothly."
   },
   {
     "objectID": "index.html#pursuit-and-evade",
     "href": "index.html#pursuit-and-evade",
     "title": "Steering Behaviours",
     "section": "Pursuit and Evade",
-    "text": "Pursuit and Evade\n\n\nPursuit\nSimilar to Seek but the character chases another moving character, attempts to predict where they are headed and tries to cut them off instead of just following the target.\n\nEvasion\nThe opposite of pursuit, the character tries to escape from other character, while trying to predict the target’s movement and adapt.\n\n\n[Diagram: predicting the target’s future position]"
+    "text": "Pursuit and Evade\n\n\nPursuit\nSimilar to Seek but the character chases another moving character, attempts to predict where they are headed and tries to cut them off instead of just following the target.\n\nEvasion\nThe opposite of pursuit, the character tries to escape from other character, while trying to predict the target’s movement and adapt."
   },
   {
-    "objectID": "index.html#wander-and-obstacle-avoidance",
-    "href": "index.html#wander-and-obstacle-avoidance",
+    "objectID": "index.html#wander",
+    "href": "index.html#wander",
     "title": "Steering Behaviours",
-    "section": "Wander and Obstacle Avoidance",
-    "text": "Wander and Obstacle Avoidance\n\n\nWander\nA type of random steering, the character moves randomly within a certain area.\n\nObstacle Avoidance\nThe character manoeuvres through the environment by dodging around obstacles, takes action only when a nearby obstacle is in front of the character."
+    "section": "Wander",
+    "text": "Wander\nA type of random steering, the character moves randomly within a certain area."
+  },
+  {
+    "objectID": "index.html#obstacle-avoidance",
+    "href": "index.html#obstacle-avoidance",
+    "title": "Steering Behaviours",
+    "section": "Obstacle Avoidance",
+    "text": "Obstacle Avoidance\nThe character manoeuvres through the environment by dodging around obstacles, takes action only when a nearby obstacle is in front of the character."
+  },
+  {
+    "objectID": "index.html#follow-path",
+    "href": "index.html#follow-path",
+    "title": "Steering Behaviours",
+    "section": "Follow Path",
+    "text": "Follow Path\nA character steers along a predetermined path, moves through a series of points along the path. The goal is to move the character along the path while staying within the specified radius."
+  },
+  {
+    "objectID": "index.html#flow-field-following",
+    "href": "index.html#flow-field-following",
+    "title": "Steering Behaviours",
+    "section": "Flow Field Following",
+    "text": "Flow Field Following\nDirects the motion of characters based on their position within an environment."
   },
   {
     "objectID": "index.html#code-example-seek",
@@ -74,7 +95,7 @@
     "href": "index.html#additional-individual-behaviours",
     "title": "Steering Behaviours",
     "section": "Additional Individual Behaviours",
-    "text": "Additional Individual Behaviours\n\n\nFollow Path\nA character steers along a predetermined path, moves through a series of points along the path. The goal is to move the character along the path while staying within the specified radius.\n\nFlow Field Following\nDirects the motion of characters based on their position within an environment.\n\nUnaligned Collision Avoidance\nTries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck."
+    "text": "Additional Individual Behaviours\n\n\nFlow Field Following\nDirects the motion of characters based on their position within an environment.\n\nUnaligned Collision Avoidance\nTries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck."
   },
   {
     "objectID": "index.html#separation-alignment-cohesion",
