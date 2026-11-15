@@ -30,15 +30,6 @@ format:
         <script src="scripts.js"></script>
 ---
 
-<!--
-HOW TO REUSE
-  Section divider : `# Title {.section-divider}` then one line of text.
-  Columns         : ::: {.columns} ::: {.column} ... ::: ::: {.column} ... ::: :::
-  Other classes   : .callout  .diagram-placeholder  .code-example  .equation
-                    .small-text  .muted  .center-content
-  Theme colours   : edit :root variables and SCSS variables in styles.css.
--->
-
 # Introduction {.section-divider}
 
 Algorithms that help autonomous characters move in a more realistic and intelligent way.
@@ -53,10 +44,7 @@ Steering behaviors are algorithms that help autonomous characters move in a more
 
 ## How does it work?
 
-<video autoplay loop muted playsinline
-       style="width: 70%; max-height: 500px; object-fit: contain;">
-  <source src="videos/steering_behaviors.mp4" type="video/mp4">
-</video>
+<img src="gifs/steering_behaviors.gif" alt="Steering Behaviors" style="width: 70%; max-height: 500px; object-fit: contain;">
 
 ## The Steering Model
 
@@ -69,7 +57,7 @@ The behavior of the autonomous character movement is divided into 3 layers:
 
 Steering behaviors live in the middle layer and stay independent of how the character will move.
 
-::: {.diagram-placeholder}
+::: {.center-content}
 <img src="img/divisiongraph.png" alt="Division Graph" style="width: 100%; max-width: 900px; object-fit: contain;">
 :::
 
@@ -88,7 +76,9 @@ An autonomous agent is modeled as a point mass driven by three vectors:
 Each simulation step updates the agent with a Euler integration:
 
 ::: {.equation}
-$$\mathbf{p}_{t+1} = \mathbf{p}_t + \mathbf{v}_t\,\Delta t$$
+$$
+\mathbf{p}_{t+1} = \mathbf{p}_t + \mathbf{v}_t\,\Delta t
+$$
 :::
 
 ::: {.small-text .muted}
@@ -101,7 +91,9 @@ Steering behaviors produce a **desired velocity**, which is the velocity the age
 The steering force is the difference between the desired velocity and current velocity:
 
 ::: {.equation}
-$$\mathbf{F}_{steer} = \mathbf{v}_{desired} - \mathbf{v}$$
+$$
+\mathbf{F}_{steer} = \mathbf{v}_{desired} - \mathbf{v}
+$$
 :::
 
 This force points from the current velocity vector toward the desired velocity, turning and adjusting the agent's speed.
@@ -203,7 +195,8 @@ The opposite of pursuit, the character tries to escape from other character, whi
 
 ## Wander
 
-A type of random steering, the character moves randomly within a certain area.
+A type of random steering, the character moves randomly within a certain area. This idea can be implementent in several ways, but usually a sphere radius
+is used as the "wandering strength".
 
 ::: {.columns}
 ::: {.column}
@@ -284,6 +277,11 @@ may occur if the distance between the characters is too small.
 <img src="img/collisionavoidance.png" alt="Unaligned Collision Avoidance behaviour" style="width: 100%; max-width: 500px; object-fit: contain;">
 
 :::
+::: {.column}
+
+<img src="gifs/unalignedcollisionavoidance.gif" alt="Unaligned Collision Avoidance behaviour" style="width: 100%; max-width: 500px; object-fit: contain;">
+
+:::
 :::
 
 # Group Behaviors {.section-divider}
@@ -338,7 +336,18 @@ Flocking simulates the movement of characters that are grouped together, combini
 
 Makes one or more characters follow another moving character as their leader, staying near them without getting in their way.
 
+::: {.columns}
+::: {.column}
+
 <img src="gifs/leaderfollow.gif" alt="Leader Following behaviour" style="width: 100%; max-width: 500px; object-fit: contain;">
+
+:::
+::: {.column}
+
+<img src="img/leaderfollow.png" alt="Leader Following behaviour" style="width: 100%; max-width: 420px; object-fit: contain;">
+
+:::
+:::
 
 # Combining Behaviors {.section-divider}
 
@@ -354,20 +363,6 @@ Some behaviors are commonly blended together and effectively act in parallel. A 
 
 ::: {.equation}
 $$\mathbf{F} = \sum_i w_i\,\mathbf{F}_i$$
-:::
-
-# Demonstration {.section-divider}
-
-Interactive steering behaviors in action.
-
-## Interactive Simulation
-
-::: {.center-content}
-<canvas id="steering-canvas" width="900" height="450"></canvas>
-:::
-
-::: {.small-text .muted}
-[Replace the canvas drawing in scripts.js with your simulation.]
 :::
 
 # Conclusion {.section-divider}
@@ -399,8 +394,26 @@ As you may have noticed, we have been using these types of behaviors in our proj
 
 - [6] D. , “Steering Behaviours: Flocking,” Github, Jan. 03, 2014. https://howtorts.github.io/2014/01/03/steering-flocking.html (accessed Nov. 09, 2026).
 
+- [7] C. Reynolds, “Interaction With Groups of Autonomous Characters,” Academia.edu, 2000. https://www.academia.edu/9909228 (accessed Nov. 15, 2026).
+
+- [8] C. W. Reynolds, “Flocks, Herds and Schools: A Distributed Behavioral Model,” Proceedings of the 14th annual conference on Computer graphics and interactive techniques - SIGGRAPH ’87, vol. 21, no. 4, 1987, doi: 10.1145/37401.37406.
+
+- [9] Q. Galvane, M. Christie, R. Ronfard, C.-K. Lim, and M.-P. Cani, “Steering Behaviors for Autonomous Cameras,” Proceedings of Motion on Games, pp. 93–102, Nov. 2013, doi: 10.1145/2522628.2522899.
 
 :::
+
+
+## Use of AI
+
+Ai tools such as *Grok* and Google Search *Gemini* were used for:
+
+- Searching and identifying academic sources;
+
+- Improving the language and clarity on the slides;
+
+- Clarifying and deep understanding of the mathematical foundations.
+
+
 
 ## Questions? {.center-content}
 

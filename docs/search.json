@@ -25,14 +25,14 @@
     "href": "index.html#vectors-and-kinematics",
     "title": "Steering Behaviors",
     "section": "Vectors and Kinematics",
-    "text": "Vectors and Kinematics\nAn autonomous agent is modeled as a point mass driven by three vectors:\n\nPosition (\\(\\mathbf{p}\\)) - where the agent is in the world\nVelocity (\\(\\mathbf{v}\\)) - how fast and in which direction it is moving\nAcceleration (\\(\\mathbf{a}\\)) - the instant change in velocity produced by steering forces\n\nEach simulation step updates the agent with a Euler integration:\n\n\\[\\mathbf{p}_{t+1} = \\mathbf{p}_t + \\mathbf{v}_t\\,\\Delta t\\]\n\n\n(t) is the time step."
+    "text": "Vectors and Kinematics\nAn autonomous agent is modeled as a point mass driven by three vectors:\n\nPosition (\\(\\mathbf{p}\\)) - where the agent is in the world\nVelocity (\\(\\mathbf{v}\\)) - how fast and in which direction it is moving\nAcceleration (\\(\\mathbf{a}\\)) - the instant change in velocity produced by steering forces\n\nEach simulation step updates the agent with a Euler integration:\n\n\\[\n\\mathbf{p}_{t+1} = \\mathbf{p}_t + \\mathbf{v}_t\\,\\Delta t\n\\]\n\n\n(t) is the time step."
   },
   {
     "objectID": "index.html#steering-force-and-truncation",
     "href": "index.html#steering-force-and-truncation",
     "title": "Steering Behaviors",
     "section": "Steering Force and Truncation",
-    "text": "Steering Force and Truncation\nSteering behaviors produce a desired velocity, which is the velocity the agent wants to have at the moment. The steering force is the difference between the desired velocity and current velocity:\n\n\\[\\mathbf{F}_{steer} = \\mathbf{v}_{desired} - \\mathbf{v}\\]\n\nThis force points from the current velocity vector toward the desired velocity, turning and adjusting the agent’s speed.\n\nsteeringForce = truncate (steeringDirection, maxForce)\nacceleration = steeringForce / mass\nvelocity = truncate (velocity + acceleration, maxSpeed)\nposition = position + velocity\n\n\nTruncation (clamping)"
+    "text": "Steering Force and Truncation\nSteering behaviors produce a desired velocity, which is the velocity the agent wants to have at the moment. The steering force is the difference between the desired velocity and current velocity:\n\n\\[\n\\mathbf{F}_{steer} = \\mathbf{v}_{desired} - \\mathbf{v}\n\\]\n\nThis force points from the current velocity vector toward the desired velocity, turning and adjusting the agent’s speed.\n\nsteeringForce = truncate (steeringDirection, maxForce)\nacceleration = steeringForce / mass\nvelocity = truncate (velocity + acceleration, maxSpeed)\nposition = position + velocity\n\n\nTruncation (clamping)"
   },
   {
     "objectID": "index.html#seek-and-flee",
@@ -60,7 +60,7 @@
     "href": "index.html#wander",
     "title": "Steering Behaviors",
     "section": "Wander",
-    "text": "Wander\nA type of random steering, the character moves randomly within a certain area."
+    "text": "Wander\nA type of random steering, the character moves randomly within a certain area. This idea can be implementent in several ways, but usually a sphere radius is used as the “wandering strength”."
   },
   {
     "objectID": "index.html#obstacle-avoidance",
@@ -119,13 +119,6 @@
     "text": "Weighted Blending\nSome behaviors are commonly blended together and effectively act in parallel. A good example is when an animal NPC is running through the woods escaping a predator: this NPC can use the flee and obstacle avoidance behaviors to navigate effectively.\n\nBlending is done by calculating the weighted sum of the steering forces produced by each behavior, and then truncating the result to the maximum force allowed.\n\n\n\n\\[\\mathbf{F} = \\sum_i w_i\\,\\mathbf{F}_i\\]"
   },
   {
-    "objectID": "index.html#interactive-simulation",
-    "href": "index.html#interactive-simulation",
-    "title": "Steering Behaviors",
-    "section": "Interactive Simulation",
-    "text": "Interactive Simulation\n\n\n\n\n\n[Replace the canvas drawing in scripts.js with your simulation.]"
-  },
-  {
     "objectID": "index.html#summary",
     "href": "index.html#summary",
     "title": "Steering Behaviors",
@@ -137,7 +130,14 @@
     "href": "index.html#references",
     "title": "Steering Behaviors",
     "section": "References",
-    "text": "References\n\n\n[1] C. Reynolds, “Steering Behaviors For Autonomous Characters,” Red3d, 1999. https://www.red3d.com/cwr/steer/gdc99/ (accessed Nov. 01, 2026).\n[2] K. Peters, AdvancED ActionScript 3.0 Animation. Friends of Ed/Apress, 2009.\n[3] NCoT Technology, “Steering Behaviours,” NCoT Wiki, Nov. 10, 2026. https://wiki.ncot.uk/Game%20Development/AI%20and%20Pathfinding/Steering%20Behaviours/ (accessed Nov. 10, 2026).\n[4] “Steering Behaviors | Glossary | GDQuest,” Gdquest.com, 2026. https://school.gdquest.com/glossary/steering_behaviors (accessed Nov. 10, 2026).\n[5] J. Perez, “Introduction to Steering Behaviours,” GameDeveloper.com, June 24, 2014. https://www.gamedeveloper.com/design/introduction-to-steering-behaviours\n[6] D. , “Steering Behaviours: Flocking,” Github, Jan. 03, 2014. https://howtorts.github.io/2014/01/03/steering-flocking.html (accessed Nov. 09, 2026)."
+    "text": "References\n\n\n[1] C. Reynolds, “Steering Behaviors For Autonomous Characters,” Red3d, 1999. https://www.red3d.com/cwr/steer/gdc99/ (accessed Nov. 01, 2026).\n[2] K. Peters, AdvancED ActionScript 3.0 Animation. Friends of Ed/Apress, 2009.\n[3] NCoT Technology, “Steering Behaviours,” NCoT Wiki, Nov. 10, 2026. https://wiki.ncot.uk/Game%20Development/AI%20and%20Pathfinding/Steering%20Behaviours/ (accessed Nov. 10, 2026).\n[4] “Steering Behaviors | Glossary | GDQuest,” Gdquest.com, 2026. https://school.gdquest.com/glossary/steering_behaviors (accessed Nov. 10, 2026).\n[5] J. Perez, “Introduction to Steering Behaviours,” GameDeveloper.com, June 24, 2014. https://www.gamedeveloper.com/design/introduction-to-steering-behaviours\n[6] D. , “Steering Behaviours: Flocking,” Github, Jan. 03, 2014. https://howtorts.github.io/2014/01/03/steering-flocking.html (accessed Nov. 09, 2026).\n[7] C. Reynolds, “Interaction With Groups of Autonomous Characters,” Academia.edu, 2000. https://www.academia.edu/9909228 (accessed Nov. 15, 2026).\n[8] C. W. Reynolds, “Flocks, Herds and Schools: A Distributed Behavioral Model,” Proceedings of the 14th annual conference on Computer graphics and interactive techniques - SIGGRAPH ’87, vol. 21, no. 4, 1987, doi: 10.1145/37401.37406.\n[9] Q. Galvane, M. Christie, R. Ronfard, C.-K. Lim, and M.-P. Cani, “Steering Behaviors for Autonomous Cameras,” Proceedings of Motion on Games, pp. 93–102, Nov. 2013, doi: 10.1145/2522628.2522899."
+  },
+  {
+    "objectID": "index.html#use-of-ai",
+    "href": "index.html#use-of-ai",
+    "title": "Steering Behaviors",
+    "section": "Use of AI",
+    "text": "Use of AI\nAi tools such as Grok and Google Search Gemini were used for:\n\nSearching and identifying academic sources;\nImproving the language and clarity on the slides;\nClarifying and deep understanding of the mathematical foundations."
   },
   {
     "objectID": "index.html#questions",
