@@ -9,8 +9,8 @@
   <meta name="generator" content="quarto-1.11.9">
 
   <meta name="author" content="Nuno Coelho and Francisco Morim">
-  <meta name="dcterms.date" content="2026-11-14">
-  <title>My Quarto Website – Steering Behaviours</title>
+  <meta name="dcterms.date" content="2026-11-15">
+  <title>My Quarto Website – Steering Behaviors</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -199,7 +199,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Steering Behaviours</h1>
+  <h1 class="title">Steering Behaviors</h1>
   <p class="subtitle">Artificial Intelligence Applied to Games</p>
 
 <div class="quarto-title-authors">
@@ -210,26 +210,15 @@ Nuno Coelho and Francisco Morim
 </div>
 </div>
 
-  <p class="date">2026-11-14</p>
-</section>
-<section class="slide level2">
-
-<!--
-HOW TO REUSE
-  Section divider : `# Title {.section-divider}` then one line of text.
-  Columns         : ::: {.columns} ::: {.column} ... ::: ::: {.column} ... ::: :::
-  Other classes   : .callout  .diagram-placeholder  .code-example  .equation
-                    .small-text  .muted  .center-content
-  Theme colours   : edit :root variables and SCSS variables in styles.css.
--->
+  <p class="date">2026-11-15</p>
 </section>
 <section>
 <section id="introduction" class="title-slide slide level1 section-divider center">
 <h1>Introduction</h1>
 <p>Algorithms that help autonomous characters move in a more realistic and intelligent way.</p>
 </section>
-<section id="what-are-steering-behaviours" class="slide level2">
-<h2>What Are Steering Behaviours?</h2>
+<section id="what-are-steering-behaviors" class="slide level2">
+<h2>What Are Steering Behaviors?</h2>
 <p>Steering behaviors are algorithms that help autonomous characters move in a more realistic and intelligent way.</p>
 <ul>
 <li>Decide when to move smoothly, accelerate, decelerate, or navigate around the environment.</li>
@@ -239,15 +228,19 @@ HOW TO REUSE
 </section>
 <section id="how-does-it-work" class="slide level2">
 <h2>How does it work?</h2>
-<video autoplay="" loop="" muted="" playsinline="" style="width: 70%; max-height: 500px; object-fit: contain;">
-<source src="videos/steering_behaviors.mp4" type="video/mp4">
-</video>
+<p><img src="gifs/steering_behaviors.gif" alt="Steering Behaviors" style="width: 70%; max-height: 500px; object-fit: contain;"></p>
 </section>
 <section id="the-steering-model" class="slide level2">
 <h2>The Steering Model</h2>
-<p>[Describe the layered model: action selection, steering, locomotion.]</p>
-<div class="diagram-placeholder">
-<p>[Diagram: action selection → steering → locomotion]</p>
+<p>The behavior of the autonomous character movement is divided into 3 layers:</p>
+<ul>
+<li>Action selection (strategy, goals, planning)</li>
+<li>Steering (path determination)</li>
+<li>Locomotion (animation, articulation)</li>
+</ul>
+<p>Steering behaviors live in the middle layer and stay independent of how the character will move.</p>
+<div class="center-content">
+<p><img src="img/divisiongraph.png" alt="Division Graph" style="width: 100%; max-width: 900px; object-fit: contain;"></p>
 </div>
 </section></section>
 <section>
@@ -257,32 +250,45 @@ HOW TO REUSE
 </section>
 <section id="vectors-and-kinematics" class="slide level2">
 <h2>Vectors and Kinematics</h2>
-<p>[Explain position, velocity, and acceleration vectors here.]</p>
+<p>An autonomous agent is modeled as a point mass driven by three vectors:</p>
+<ul>
+<li><strong>Position</strong> (<span class="math inline">\(\mathbf{p}\)</span>) - where the agent is in the world</li>
+<li><strong>Velocity</strong> (<span class="math inline">\(\mathbf{v}\)</span>) - how fast and in which direction it is moving</li>
+<li><strong>Acceleration</strong> (<span class="math inline">\(\mathbf{a}\)</span>) - the instant change in velocity produced by steering forces</li>
+</ul>
+<p>Each simulation step updates the agent with a Euler integration:</p>
 <div class="equation">
-<p><span class="math display">\[\mathbf{p}_{t+1} = \mathbf{p}_t + \mathbf{v}_t\,\Delta t\]</span></p>
+<p><span class="math display">\[
+\mathbf{p}_{t+1} = \mathbf{p}_t + \mathbf{v}_t\,\Delta t
+\]</span></p>
 </div>
 <div class="small-text muted">
-<p>[Notes on notation.]</p>
+<p>(t) is the time step.</p>
 </div>
 </section>
 <section id="steering-force-and-truncation" class="slide level2">
 <h2>Steering Force and Truncation</h2>
-<p>[Explain steering = desired velocity − current velocity.]</p>
+<p>Steering behaviors produce a <strong>desired velocity</strong>, which is the velocity the agent wants to have at the moment. The steering force is the difference between the desired velocity and current velocity:</p>
 <div class="equation">
-<p><span class="math display">\[\mathbf{F}_{steer} = \mathbf{v}_{desired} - \mathbf{v}\]</span></p>
+<p><span class="math display">\[
+\mathbf{F}_{steer} = \mathbf{v}_{desired} - \mathbf{v}
+\]</span></p>
 </div>
-<div class="callout callout-none no-icon callout-style-simple">
-<div class="callout-body">
-<div class="callout-content">
-<p>[Explain truncation by maximum force and speed.]</p>
+<p>This force points from the current velocity vector toward the desired velocity, turning and adjusting the agent’s speed.</p>
+<div class="code-example">
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>steeringForce <span class="op">=</span> truncate <span class="op">(</span>steeringDirection<span class="op">,</span> maxForce<span class="op">)</span></span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>acceleration <span class="op">=</span> steeringForce <span class="op">/</span> mass</span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>velocity <span class="op">=</span> truncate <span class="op">(</span>velocity <span class="op">+</span> acceleration<span class="op">,</span> maxSpeed<span class="op">)</span></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>position <span class="op">=</span> position <span class="op">+</span> velocity</span></code></pre></div>
 </div>
-</div>
+<div class="small-text muted">
+<p>Truncation (clamping)</p>
 </div>
 </section></section>
 <section>
-<section id="individual-behaviours" class="title-slide slide level1 section-divider center">
-<h1>Individual Behaviours</h1>
-<p>Core local steering behaviours for single-agent navigation.</p>
+<section id="individual-behaviors" class="title-slide slide level1 section-divider center">
+<h1>Individual Behaviors</h1>
+<p>Core local steering behaviors for single-agent navigation.</p>
 </section>
 <section id="seek-and-flee" class="slide level2">
 <h2>Seek and Flee</h2>
@@ -302,10 +308,18 @@ HOW TO REUSE
 <p>Identical to seek when far from its target. But when the character approaches its target it begins to slow down to stop more smoothly.</p>
 <div class="columns">
 <div class="column">
-<p><img src="gifs/arrive.gif" alt="Arrive behaviour" style="width: 70%; max-width: 500px; object-fit: contain;"></p>
+<p><img src="gifs/arrive.gif" alt="Arrive behaviour" style="width: 70%; max-width: 400px; object-fit: contain;"></p>
 </div><div class="column">
-<p><img src="img/arrival.png" alt="Arrive behaviour" style="width: 70%; max-width: 370px; object-fit: contain;"></p>
+<p><img src="img/arrival.png" alt="Arrive behaviour" style="width: 70%; max-width: 330px; object-fit: contain;"></p>
 </div></div>
+<div class="code-example">
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a>targetOffset <span class="op">=</span> target <span class="op">-</span> position</span>
+<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>distance <span class="op">=</span> length<span class="op">(</span>targetOffset<span class="op">)</span></span>
+<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>rampedSpeed <span class="op">=</span> maxSpeed <span class="op">*</span> <span class="op">(</span>distance <span class="op">/</span> slowingDistance<span class="op">)</span></span>
+<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>clippedSpeed <span class="op">=</span> min<span class="op">(</span>rampedSpeed<span class="op">,</span> maxSpeed<span class="op">)</span></span>
+<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>desiredVelocity <span class="op">=</span> <span class="op">(</span>clippedSpeed <span class="op">/</span> distance<span class="op">)</span> <span class="op">*</span> targetOffset</span>
+<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a>steering <span class="op">=</span> desiredVelocity <span class="op">-</span> currentVelocity</span></code></pre></div>
+</div>
 </section>
 <section id="pursuit-and-evade" class="slide level2">
 <h2>Pursuit and Evade</h2>
@@ -319,19 +333,19 @@ HOW TO REUSE
 </div></div>
 <div class="columns">
 <div class="column">
-<p><img src="gifs/pursuit.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
+<p><img src="gifs/pursuit.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 580px; object-fit: contain;"></p>
 </div><div class="column">
-<p><img src="gifs/evasion.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
+<p><img src="gifs/evasion.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 580px; object-fit: contain;"></p>
 </div></div>
 </section>
 <section id="wander" class="slide level2">
 <h2>Wander</h2>
-<p>A type of random steering, the character moves randomly within a certain area.</p>
+<p>A type of random steering, the character moves randomly within a certain area. This idea can be implementent in several ways, but usually a sphere radius is used as the “wandering strength”.</p>
 <div class="columns">
 <div class="column">
-<p><img src="gifs/wander.gif" alt="Wander behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
+<p><img src="gifs/wander.gif" alt="Wander behaviour" style="width: 100%; max-width: 510px; object-fit: contain;"></p>
 </div><div class="column">
-<p><img src="img/wander.png" alt="Wander behaviour" style="width: 100%; max-width: 400px; object-fit: contain;"></p>
+<p><img src="img/wander.png" alt="Wander behaviour" style="width: 100%; max-width: 430px; object-fit: contain;"></p>
 </div></div>
 </section>
 <section id="obstacle-avoidance" class="slide level2">
@@ -341,7 +355,7 @@ HOW TO REUSE
 <div class="column">
 <p><img src="gifs/obstacleavoidance.gif" alt="Obstacle Avoidance behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
 </div><div class="column">
-<p><img src="img/obstacleavoidance.png" alt="Obstacle Avoidance behaviour" style="width: 100%; max-width: 400px; object-fit: contain;"></p>
+<p><img src="img/obstacleavoidance.png" alt="Obstacle Avoidance behaviour" style="width: 100%; max-width: 435px; object-fit: contain;"></p>
 </div></div>
 </section>
 <section id="follow-path" class="slide level2">
@@ -356,7 +370,7 @@ HOW TO REUSE
 </section>
 <section id="flow-field-following" class="slide level2">
 <h2>Flow Field Following</h2>
-<p>Directs the motion of characters based on their position within an environment.</p>
+<p>Directs the motion of characters based on their position within an environment. It defines a mapping from a location to a flow vector. It allows for motion specification without the use of programming.</p>
 <div class="columns">
 <div class="column">
 <p><img src="img/flowfollow.png" alt="Flow Field Following behaviour" style="width: 100%; max-width: 460px; object-fit: contain;"></p>
@@ -364,30 +378,19 @@ HOW TO REUSE
 <p><img src="img/flowfollow2.png" alt="Flow Field Following behaviour" style="width: 100%; max-width: 550px; object-fit: contain;"></p>
 </div></div>
 </section>
-<section id="code-example-seek" class="slide level2">
-<h2>Code Example: Seek</h2>
-<div class="code-example">
-<div class="sourceCode" id="cb1"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">seek</span>(agent<span class="op">,</span> target) {</span>
-<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="co">// [Replace with your implementation]</span></span>
-<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> desired <span class="op">=</span> <span class="fu">normalize</span>(<span class="fu">sub</span>(target<span class="op">,</span> agent<span class="op">.</span><span class="at">pos</span>))<span class="op">;</span></span>
-<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">sub</span>(<span class="fu">scale</span>(desired<span class="op">,</span> agent<span class="op">.</span><span class="at">maxSpeed</span>)<span class="op">,</span> agent<span class="op">.</span><span class="at">vel</span>)<span class="op">;</span></span>
-<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-</div>
-<p>[Explain the code here.]</p>
-</section>
-<section id="additional-individual-behaviours" class="slide level2">
-<h2>Additional Individual Behaviours</h2>
+<section id="unaligned-collision-avoidance" class="slide level2">
+<h2>Unaligned Collision Avoidance</h2>
+<p>Tries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck. A collision may occur if the distance between the characters is too small.</p>
 <div class="columns">
 <div class="column">
-<h3 id="flow-field-following-1">Flow Field Following</h3>
-<p>Directs the motion of characters based on their position within an environment.</p>
+<p><img src="img/collisionavoidance.png" alt="Unaligned Collision Avoidance behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
+</div><div class="column">
+<p><img src="gifs/unalignedcollisionavoidance.gif" alt="Unaligned Collision Avoidance behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
 </div></div>
-<h3 id="unaligned-collision-avoidance">Unaligned Collision Avoidance</h3>
-<p>Tries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck.</p>
 </section></section>
 <section>
-<section id="group-behaviours" class="title-slide slide level1 section-divider center">
-<h1>Group Behaviours</h1>
+<section id="group-behaviors" class="title-slide slide level1 section-divider center">
+<h1>Group Behaviors</h1>
 <p>Coordinated movement across multiple nearby characters.</p>
 </section>
 <section id="separation-alignment-cohesion" class="slide level2">
@@ -403,73 +406,62 @@ HOW TO REUSE
 <h3 id="cohesion">Cohesion</h3>
 <p>The character gains the ability to approach and form a group with other characters nearby.</p>
 </div></div>
-</section>
-<section id="flocking-code-and-visualization" class="slide level2">
-<h2>Flocking: Code and Visualization</h2>
-<p>Flocking simulates the movement of characters that are grouped together, combining Separation, Cohesion, and Alignment behaviors to replicate birds or fish flocks, for example.</p>
-<div class="columns center-v">
+<div class="columns">
 <div class="column">
-<div class="code-example">
-<div class="sourceCode" id="cb2"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">flock</span>(agent<span class="op">,</span> neighbours) {</span>
-<span id="cb2-2"><a aria-hidden="true" tabindex="-1"></a>  <span class="co">// [Replace with your implementation]</span></span>
-<span id="cb2-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">add</span>(<span class="fu">separation</span>(agent<span class="op">,</span> neighbours)<span class="op">,</span></span>
-<span id="cb2-4"><a aria-hidden="true" tabindex="-1"></a>             <span class="fu">alignment</span>(agent<span class="op">,</span> neighbours)<span class="op">,</span></span>
-<span id="cb2-5"><a aria-hidden="true" tabindex="-1"></a>             <span class="fu">cohesion</span>(agent<span class="op">,</span> neighbours))<span class="op">;</span></span>
-<span id="cb2-6"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-</div>
+<p><img src="img/separation.png" alt="Separation behaviour" style="width: 100%; max-width: 300px; object-fit: contain;"></p>
 </div><div class="column">
-<div class="diagram-placeholder">
-<p>[Diagram: flocking visualization]</p>
-</div>
+<p><img src="img/alignment.png" alt="Alignment behaviour" style="width: 100%; max-width: 300px; object-fit: contain;"></p>
+</div><div class="column">
+<p><img src="img/cohesion.png" alt="Cohesion behaviour" style="width: 100%; max-width: 300px; object-fit: contain;"></p>
 </div></div>
 </section>
+<section id="flocking-also-known-as-boids" class="slide level2">
+<h2>Flocking (also known as Boids)</h2>
+<p>Flocking simulates the movement of characters that are grouped together, combining Separation, Cohesion, and Alignment behaviors to replicate birds or fish flocks, for example.</p>
+
+<img src="gifs/flocking.gif" alt="Flocking behaviour" style="width: 100%; max-width: 500px; object-fit: contain;" class="r-stretch"></section>
 <section id="leader-following" class="slide level2">
 <h2>Leader Following</h2>
 <p>Makes one or more characters follow another moving character as their leader, staying near them without getting in their way.</p>
+<div class="columns">
+<div class="column">
+<p><img src="gifs/leaderfollow.gif" alt="Leader Following behaviour" style="width: 100%; max-width: 500px; object-fit: contain;"></p>
+</div><div class="column">
+<p><img src="img/leaderfollow.png" alt="Leader Following behaviour" style="width: 100%; max-width: 420px; object-fit: contain;"></p>
+</div></div>
 </section></section>
 <section>
-<section id="combining-behaviours" class="title-slide slide level1 section-divider center">
-<h1>Combining Behaviours</h1>
+<section id="combining-behaviors" class="title-slide slide level1 section-divider center">
+<h1>Combining Behaviors</h1>
 <p>A character may switch between behavior modes as circumstances change in the game, such as events.</p>
 </section>
 <section id="weighted-blending" class="slide level2">
 <h2>Weighted Blending</h2>
 <p>Some behaviors are commonly blended together and effectively act in parallel. A good example is when an animal NPC is running through the woods escaping a predator: this NPC can use the flee and obstacle avoidance behaviors to navigate effectively.</p>
+<blockquote>
+<p>Blending is done by calculating the weighted sum of the steering forces produced by each behavior, and then truncating the result to the maximum force allowed.</p>
+</blockquote>
+<p><br></p>
 <div class="equation">
 <p><span class="math display">\[\mathbf{F} = \sum_i w_i\,\mathbf{F}_i\]</span></p>
 </div>
 </section></section>
 <section>
-<section id="demonstration" class="title-slide slide level1 section-divider center">
-<h1>Demonstration</h1>
-<p>Interactive steering behaviours in action.</p>
-</section>
-<section id="interactive-simulation" class="slide level2">
-<h2>Interactive Simulation</h2>
-<div class="center-content">
-<canvas id="steering-canvas" width="900" height="450">
-</canvas>
-</div>
-<div class="small-text muted">
-<p>[Replace the canvas drawing in scripts.js with your simulation.]</p>
-</div>
-</section></section>
-<section>
 <section id="conclusion" class="title-slide slide level1 section-divider center">
 <h1>Conclusion</h1>
-<p>Why use steering behaviours and where they appear in games.</p>
+<p>Why use steering behaviors and where do they appear in games?</p>
 </section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
 <ul>
-<li><strong>Performance:</strong> Highly CPU efficient by using simple local mathematics and vector calculations—ideal even for mobile games.</li>
+<li><strong>Performance:</strong> Highly CPU efficient by using simple local mathematics and vector calculations — ideal even for mobile games.</li>
 <li><strong>Realism:</strong> Movement can be very realistic due to velocity and path changes, with many different NPC actions when behaviors are combined.</li>
-<li><strong>Use Cases:</strong> Used across many genres with large numbers of NPCs—Racing (AI opponents/traffic), Driving (AI traffic), Action, Role-Playing, and Open-World games.</li>
+<li><strong>Use Cases:</strong> Used across many genres with large numbers of NPCs — Racing (AI opponents/traffic), Driving (AI traffic), Action, Role-Playing, and Open-World games.</li>
 </ul>
 <div class="callout callout-none no-icon callout-style-simple">
 <div class="callout-body">
 <div class="callout-content">
-<p>[Closing remark or open question.]</p>
+<p>As you may have noticed, we have been using these types of behaviors in our projects and classes.</p>
 </div>
 </div>
 </div>
@@ -478,21 +470,37 @@ HOW TO REUSE
 <h2>References</h2>
 <div class="small-text">
 <ul>
-<li>[Reference 1]</li>
-<li>[Reference 2]</li>
-<li>[Reference 3]</li>
+<li><p>[1] C. Reynolds, “Steering Behaviors For Autonomous Characters,” Red3d, 1999. https://www.red3d.com/cwr/steer/gdc99/ (accessed Nov.&nbsp;01, 2026).</p></li>
+<li><p>[2] K. Peters, AdvancED ActionScript 3.0 Animation. Friends of Ed/Apress, 2009.</p></li>
+<li><p>[3] NCoT Technology, “Steering Behaviours,” NCoT Wiki, Nov.&nbsp;10, 2026. https://wiki.ncot.uk/Game%20Development/AI%20and%20Pathfinding/Steering%20Behaviours/ (accessed Nov.&nbsp;10, 2026).</p></li>
+<li><p>[4] “Steering Behaviors | Glossary | GDQuest,” Gdquest.com, 2026. https://school.gdquest.com/glossary/steering_behaviors (accessed Nov.&nbsp;10, 2026).</p></li>
+<li><p>[5] J. Perez, “Introduction to Steering Behaviours,” GameDeveloper.com, June 24, 2014. https://www.gamedeveloper.com/design/introduction-to-steering-behaviours</p></li>
+<li><p>[6] D. , “Steering Behaviours: Flocking,” Github, Jan.&nbsp;03, 2014. https://howtorts.github.io/2014/01/03/steering-flocking.html (accessed Nov.&nbsp;09, 2026).</p></li>
+<li><p>[7] C. Reynolds, “Interaction With Groups of Autonomous Characters,” Academia.edu, 2000. https://www.academia.edu/9909228 (accessed Nov.&nbsp;15, 2026).</p></li>
+<li><p>[8] C. W. Reynolds, “Flocks, Herds and Schools: A Distributed Behavioral Model,” Proceedings of the 14th annual conference on Computer graphics and interactive techniques - SIGGRAPH ’87, vol.&nbsp;21, no. 4, 1987, doi: 10.1145/37401.37406.</p></li>
+<li><p>[9] Q. Galvane, M. Christie, R. Ronfard, C.-K. Lim, and M.-P. Cani, “Steering Behaviors for Autonomous Cameras,” Proceedings of Motion on Games, pp.&nbsp;93–102, Nov.&nbsp;2013, doi: 10.1145/2522628.2522899.</p></li>
 </ul>
 </div>
 </section>
+<section id="use-of-ai" class="slide level2">
+<h2>Use of AI</h2>
+<p>Ai tools such as <em>Grok</em> and Google Search <em>Gemini</em> were used for:</p>
+<ul>
+<li><p>Searching and identifying academic sources;</p></li>
+<li><p>Improving the language and clarity on the slides;</p></li>
+<li><p>Clarifying and deep understanding of the mathematical foundations.</p></li>
+</ul>
+</section>
 <section id="questions" class="slide level2 center-content">
 <h2>Questions?</h2>
+<p>Thank you for your time!</p>
 
 
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
-<p>Steering Behaviours · Undergraduate in Games and Multimedia</p>
+<p>Steering Behaviors · Undergraduate in Games and Multimedia</p>
 </div>
 </div></div>
 
