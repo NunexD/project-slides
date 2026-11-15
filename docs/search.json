@@ -1,156 +1,149 @@
 [
   {
-    "objectID": "index.html#what-are-steering-behaviours",
-    "href": "index.html#what-are-steering-behaviours",
-    "title": "Steering Behaviours",
-    "section": "What Are Steering Behaviours?",
-    "text": "What Are Steering Behaviours?\nSteering behaviors are algorithms that help autonomous characters move in a more realistic and intelligent way.\n\nDecide when to move smoothly, accelerate, decelerate, or navigate around the environment.\nAvoid heavy pathfinding or physics engines by using simple local mathematics and vector calculations.\nHighly CPU efficient, allowing integration into mobile games without performance issues."
+    "objectID": "index.html#what-are-steering-behaviors",
+    "href": "index.html#what-are-steering-behaviors",
+    "title": "Steering Behaviors",
+    "section": "What Are Steering Behaviors?",
+    "text": "What Are Steering Behaviors?\nSteering behaviors are algorithms that help autonomous characters move in a more realistic and intelligent way.\n\nDecide when to move smoothly, accelerate, decelerate, or navigate around the environment.\nAvoid heavy pathfinding or physics engines by using simple local mathematics and vector calculations.\nHighly CPU efficient, allowing integration into mobile games without performance issues."
   },
   {
     "objectID": "index.html#how-does-it-work",
     "href": "index.html#how-does-it-work",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "How does it work?",
     "text": "How does it work?"
   },
   {
     "objectID": "index.html#the-steering-model",
     "href": "index.html#the-steering-model",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "The Steering Model",
-    "text": "The Steering Model\n[Describe the layered model: action selection, steering, locomotion.]\n\n[Diagram: action selection → steering → locomotion]"
+    "text": "The Steering Model\nThe behavior of the autonomous character movement is divided into 3 layers:\n\nAction selection (strategy, goals, planning)\nSteering (path determination)\nLocomotion (animation, articulation)\n\nSteering behaviors live in the middle layer and stay independent of how the character will move."
   },
   {
     "objectID": "index.html#vectors-and-kinematics",
     "href": "index.html#vectors-and-kinematics",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Vectors and Kinematics",
-    "text": "Vectors and Kinematics\n[Explain position, velocity, and acceleration vectors here.]\n\n\\[\\mathbf{p}_{t+1} = \\mathbf{p}_t + \\mathbf{v}_t\\,\\Delta t\\]\n\n\n[Notes on notation.]"
+    "text": "Vectors and Kinematics\nAn autonomous agent is modeled as a point mass driven by three vectors:\n\nPosition (\\(\\mathbf{p}\\)) - where the agent is in the world\nVelocity (\\(\\mathbf{v}\\)) - how fast and in which direction it is moving\nAcceleration (\\(\\mathbf{a}\\)) - the instant change in velocity produced by steering forces\n\nEach simulation step updates the agent with a Euler integration:\n\n\\[\\mathbf{p}_{t+1} = \\mathbf{p}_t + \\mathbf{v}_t\\,\\Delta t\\]\n\n\n(t) is the time step."
   },
   {
     "objectID": "index.html#steering-force-and-truncation",
     "href": "index.html#steering-force-and-truncation",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Steering Force and Truncation",
-    "text": "Steering Force and Truncation\n[Explain steering = desired velocity − current velocity.]\n\n\\[\\mathbf{F}_{steer} = \\mathbf{v}_{desired} - \\mathbf{v}\\]\n\n\n\n\n[Explain truncation by maximum force and speed.]"
+    "text": "Steering Force and Truncation\nSteering behaviors produce a desired velocity, which is the velocity the agent wants to have at the moment. The steering force is the difference between the desired velocity and current velocity:\n\n\\[\\mathbf{F}_{steer} = \\mathbf{v}_{desired} - \\mathbf{v}\\]\n\nThis force points from the current velocity vector toward the desired velocity, turning and adjusting the agent’s speed.\n\nsteeringForce = truncate (steeringDirection, maxForce)\nacceleration = steeringForce / mass\nvelocity = truncate (velocity + acceleration, maxSpeed)\nposition = position + velocity\n\n\nTruncation (clamping)"
   },
   {
     "objectID": "index.html#seek-and-flee",
     "href": "index.html#seek-and-flee",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Seek and Flee",
     "text": "Seek and Flee\n\n\nSeek\nMoves the character towards a specific position in the global space, while adjusting its velocity aligned towards the target.\n\n\nFlee\nThe inverse of Seek and makes the character’s desired velocity point in the opposite direction of the target."
   },
   {
     "objectID": "index.html#arrive",
     "href": "index.html#arrive",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Arrive",
-    "text": "Arrive\nIdentical to seek when far from its target. But when the character approaches its target it begins to slow down to stop more smoothly."
+    "text": "Arrive\nIdentical to seek when far from its target. But when the character approaches its target it begins to slow down to stop more smoothly.\n\n\n\n\n\n\n\ntargetOffset = target - position\ndistance = length(targetOffset)\nrampedSpeed = maxSpeed * (distance / slowingDistance)\nclippedSpeed = min(rampedSpeed, maxSpeed)\ndesiredVelocity = (clippedSpeed / distance) * targetOffset\nsteering = desiredVelocity - currentVelocity"
   },
   {
     "objectID": "index.html#pursuit-and-evade",
     "href": "index.html#pursuit-and-evade",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Pursuit and Evade",
     "text": "Pursuit and Evade\n\n\nPursuit\nSimilar to Seek but the character chases another moving character, attempts to predict where they are headed and tries to cut them off instead of just following the target.\n\nEvasion\nThe opposite of pursuit, the character tries to escape from other character, while trying to predict the target’s movement and adapt."
   },
   {
     "objectID": "index.html#wander",
     "href": "index.html#wander",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Wander",
     "text": "Wander\nA type of random steering, the character moves randomly within a certain area."
   },
   {
     "objectID": "index.html#obstacle-avoidance",
     "href": "index.html#obstacle-avoidance",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Obstacle Avoidance",
     "text": "Obstacle Avoidance\nThe character manoeuvres through the environment by dodging around obstacles, takes action only when a nearby obstacle is in front of the character."
   },
   {
     "objectID": "index.html#follow-path",
     "href": "index.html#follow-path",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Follow Path",
     "text": "Follow Path\nA character steers along a predetermined path, moves through a series of points along the path. The goal is to move the character along the path while staying within the specified radius."
   },
   {
     "objectID": "index.html#flow-field-following",
     "href": "index.html#flow-field-following",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Flow Field Following",
-    "text": "Flow Field Following\nDirects the motion of characters based on their position within an environment."
+    "text": "Flow Field Following\nDirects the motion of characters based on their position within an environment. It defines a mapping from a location to a flow vector. It allows for motion specification without the use of programming."
   },
   {
-    "objectID": "index.html#code-example-seek",
-    "href": "index.html#code-example-seek",
-    "title": "Steering Behaviours",
-    "section": "Code Example: Seek",
-    "text": "Code Example: Seek\n\nfunction seek(agent, target) {\n  // [Replace with your implementation]\n  const desired = normalize(sub(target, agent.pos));\n  return sub(scale(desired, agent.maxSpeed), agent.vel);\n}\n\n[Explain the code here.]"
-  },
-  {
-    "objectID": "index.html#additional-individual-behaviours",
-    "href": "index.html#additional-individual-behaviours",
-    "title": "Steering Behaviours",
-    "section": "Additional Individual Behaviours",
-    "text": "Additional Individual Behaviours\n\n\nFlow Field Following\nDirects the motion of characters based on their position within an environment.\n\nUnaligned Collision Avoidance\nTries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck."
+    "objectID": "index.html#unaligned-collision-avoidance",
+    "href": "index.html#unaligned-collision-avoidance",
+    "title": "Steering Behaviors",
+    "section": "Unaligned Collision Avoidance",
+    "text": "Unaligned Collision Avoidance\nTries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck. A collision may occur if the distance between the characters is too small."
   },
   {
     "objectID": "index.html#separation-alignment-cohesion",
     "href": "index.html#separation-alignment-cohesion",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Separation, Alignment, Cohesion",
     "text": "Separation, Alignment, Cohesion\n\n\nSeparation\nThe character maintains a separation distance from other characters nearby to prevent crowding.\n\nAlignment\nThe character gains the ability to align its direction and speed with other characters nearby to have the same pace.\n\nCohesion\nThe character gains the ability to approach and form a group with other characters nearby."
   },
   {
-    "objectID": "index.html#flocking-code-and-visualization",
-    "href": "index.html#flocking-code-and-visualization",
-    "title": "Steering Behaviours",
-    "section": "Flocking: Code and Visualization",
-    "text": "Flocking: Code and Visualization\nFlocking simulates the movement of characters that are grouped together, combining Separation, Cohesion, and Alignment behaviors to replicate birds or fish flocks, for example.\n\n\n\nfunction flock(agent, neighbours) {\n  // [Replace with your implementation]\n  return add(separation(agent, neighbours),\n             alignment(agent, neighbours),\n             cohesion(agent, neighbours));\n}\n\n\n\n[Diagram: flocking visualization]"
+    "objectID": "index.html#flocking-also-known-as-boids",
+    "href": "index.html#flocking-also-known-as-boids",
+    "title": "Steering Behaviors",
+    "section": "Flocking (also known as Boids)",
+    "text": "Flocking (also known as Boids)\nFlocking simulates the movement of characters that are grouped together, combining Separation, Cohesion, and Alignment behaviors to replicate birds or fish flocks, for example."
   },
   {
     "objectID": "index.html#leader-following",
     "href": "index.html#leader-following",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Leader Following",
     "text": "Leader Following\nMakes one or more characters follow another moving character as their leader, staying near them without getting in their way."
   },
   {
     "objectID": "index.html#weighted-blending",
     "href": "index.html#weighted-blending",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Weighted Blending",
-    "text": "Weighted Blending\nSome behaviors are commonly blended together and effectively act in parallel. A good example is when an animal NPC is running through the woods escaping a predator: this NPC can use the flee and obstacle avoidance behaviors to navigate effectively.\n\n\\[\\mathbf{F} = \\sum_i w_i\\,\\mathbf{F}_i\\]"
+    "text": "Weighted Blending\nSome behaviors are commonly blended together and effectively act in parallel. A good example is when an animal NPC is running through the woods escaping a predator: this NPC can use the flee and obstacle avoidance behaviors to navigate effectively.\n\nBlending is done by calculating the weighted sum of the steering forces produced by each behavior, and then truncating the result to the maximum force allowed.\n\n\n\n\\[\\mathbf{F} = \\sum_i w_i\\,\\mathbf{F}_i\\]"
   },
   {
     "objectID": "index.html#interactive-simulation",
     "href": "index.html#interactive-simulation",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Interactive Simulation",
     "text": "Interactive Simulation\n\n\n\n\n\n[Replace the canvas drawing in scripts.js with your simulation.]"
   },
   {
     "objectID": "index.html#summary",
     "href": "index.html#summary",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Summary",
-    "text": "Summary\n\nPerformance: Highly CPU efficient by using simple local mathematics and vector calculations—ideal even for mobile games.\nRealism: Movement can be very realistic due to velocity and path changes, with many different NPC actions when behaviors are combined.\nUse Cases: Used across many genres with large numbers of NPCs—Racing (AI opponents/traffic), Driving (AI traffic), Action, Role-Playing, and Open-World games.\n\n\n\n\n[Closing remark or open question.]"
+    "text": "Summary\n\nPerformance: Highly CPU efficient by using simple local mathematics and vector calculations — ideal even for mobile games.\nRealism: Movement can be very realistic due to velocity and path changes, with many different NPC actions when behaviors are combined.\nUse Cases: Used across many genres with large numbers of NPCs — Racing (AI opponents/traffic), Driving (AI traffic), Action, Role-Playing, and Open-World games.\n\n\n\n\nAs you may have noticed, we have been using these types of behaviors in our projects and classes."
   },
   {
     "objectID": "index.html#references",
     "href": "index.html#references",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "References",
-    "text": "References\n\n\n[Reference 1]\n[Reference 2]\n[Reference 3]"
+    "text": "References\n\n\n[1] C. Reynolds, “Steering Behaviors For Autonomous Characters,” Red3d, 1999. https://www.red3d.com/cwr/steer/gdc99/ (accessed Nov. 01, 2026).\n[2] K. Peters, AdvancED ActionScript 3.0 Animation. Friends of Ed/Apress, 2009.\n[3] NCoT Technology, “Steering Behaviours,” NCoT Wiki, Nov. 10, 2026. https://wiki.ncot.uk/Game%20Development/AI%20and%20Pathfinding/Steering%20Behaviours/ (accessed Nov. 10, 2026).\n[4] “Steering Behaviors | Glossary | GDQuest,” Gdquest.com, 2026. https://school.gdquest.com/glossary/steering_behaviors (accessed Nov. 10, 2026).\n[5] J. Perez, “Introduction to Steering Behaviours,” GameDeveloper.com, June 24, 2014. https://www.gamedeveloper.com/design/introduction-to-steering-behaviours\n[6] D. , “Steering Behaviours: Flocking,” Github, Jan. 03, 2014. https://howtorts.github.io/2014/01/03/steering-flocking.html (accessed Nov. 09, 2026)."
   },
   {
     "objectID": "index.html#questions",
     "href": "index.html#questions",
-    "title": "Steering Behaviours",
+    "title": "Steering Behaviors",
     "section": "Questions?",
-    "text": "Questions?"
+    "text": "Questions?\nThank you for your time!"
   }
 ]

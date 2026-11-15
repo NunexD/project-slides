@@ -1,5 +1,5 @@
 ---
-title: "Steering Behaviours"
+title: "Steering Behaviors"
 subtitle: Artificial Intelligence Applied to Games
 author: Nuno Coelho and Francisco Morim
 date: today
@@ -20,7 +20,7 @@ format:
     height: 720
     margin: 0.06
     center: false
-    footer: "Steering Behaviours · Undergraduate in Games and Multimedia"
+    footer: "Steering Behaviors · Undergraduate in Games and Multimedia"
     code-line-numbers: false
     highlight-style: dracula
     code-copy: false
@@ -43,7 +43,7 @@ HOW TO REUSE
 
 Algorithms that help autonomous characters move in a more realistic and intelligent way.
 
-## What Are Steering Behaviours?
+## What Are Steering Behaviors?
 
 Steering behaviors are algorithms that help autonomous characters move in a more realistic and intelligent way.
 
@@ -60,10 +60,17 @@ Steering behaviors are algorithms that help autonomous characters move in a more
 
 ## The Steering Model
 
-[Describe the layered model: action selection, steering, locomotion.]
+
+The behavior of the autonomous character movement is divided into 3 layers:
+
+- Action selection (strategy, goals, planning)
+- Steering (path determination)
+- Locomotion (animation, articulation)
+
+Steering behaviors live in the middle layer and stay independent of how the character will move.
 
 ::: {.diagram-placeholder}
-[Diagram: action selection → steering → locomotion]
+<img src="img/divisiongraph.png" alt="Division Graph" style="width: 100%; max-width: 900px; object-fit: contain;">
 :::
 
 # Mathematical Foundations {.section-divider}
@@ -72,31 +79,50 @@ Simple local mathematics and vector calculations for realistic movement.
 
 ## Vectors and Kinematics
 
-[Explain position, velocity, and acceleration vectors here.]
+An autonomous agent is modeled as a point mass driven by three vectors:
+
+- **Position** ($\mathbf{p}$) - where the agent is in the world
+- **Velocity** ($\mathbf{v}$) - how fast and in which direction it is moving
+- **Acceleration** ($\mathbf{a}$) - the instant change in velocity produced by steering forces
+
+Each simulation step updates the agent with a Euler integration:
 
 ::: {.equation}
 $$\mathbf{p}_{t+1} = \mathbf{p}_t + \mathbf{v}_t\,\Delta t$$
 :::
 
 ::: {.small-text .muted}
-[Notes on notation.]
+\(\Delta t\) is the time step.
 :::
 
 ## Steering Force and Truncation
 
-[Explain steering = desired velocity − current velocity.]
+Steering behaviors produce a **desired velocity**, which is the velocity the agent wants to have at the moment.
+The steering force is the difference between the desired velocity and current velocity:
 
 ::: {.equation}
 $$\mathbf{F}_{steer} = \mathbf{v}_{desired} - \mathbf{v}$$
 :::
 
-::: {.callout}
-[Explain truncation by maximum force and speed.]
+This force points from the current velocity vector toward the desired velocity, turning and adjusting the agent's speed.
+
+::: {.code-example}
+```cpp
+steeringForce = truncate (steeringDirection, maxForce)
+acceleration = steeringForce / mass
+velocity = truncate (velocity + acceleration, maxSpeed)
+position = position + velocity
+```
 :::
 
-# Individual Behaviours {.section-divider}
+::: {.small-text .muted}
+Truncation (clamping)
+:::
 
-Core local steering behaviours for single-agent navigation.
+
+# Individual Behaviors {.section-divider}
+
+Core local steering behaviors for single-agent navigation.
 
 ## Seek and Flee
 
@@ -124,14 +150,25 @@ Identical to seek when far from its target. But when the character approaches it
 ::: {.columns}
 ::: {.column}
 
-<img src="gifs/arrive.gif" alt="Arrive behaviour" style="width: 70%; max-width: 500px; object-fit: contain;">
+<img src="gifs/arrive.gif" alt="Arrive behaviour" style="width: 70%; max-width: 400px; object-fit: contain;">
 
 :::
 ::: {.column}
 
-<img src="img/arrival.png" alt="Arrive behaviour" style="width: 70%; max-width: 370px; object-fit: contain;">
+<img src="img/arrival.png" alt="Arrive behaviour" style="width: 70%; max-width: 330px; object-fit: contain;">
 
 :::
+:::
+
+::: {.code-example}
+```cpp
+targetOffset = target - position
+distance = length(targetOffset)
+rampedSpeed = maxSpeed * (distance / slowingDistance)
+clippedSpeed = min(rampedSpeed, maxSpeed)
+desiredVelocity = (clippedSpeed / distance) * targetOffset
+steering = desiredVelocity - currentVelocity
+```
 :::
 
 ## Pursuit and Evade
@@ -154,12 +191,12 @@ The opposite of pursuit, the character tries to escape from other character, whi
 ::: {.columns}
 ::: {.column}
 
-<img src="gifs/pursuit.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 500px; object-fit: contain;">
+<img src="gifs/pursuit.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 580px; object-fit: contain;">
 
 :::
 ::: {.column}
 
-<img src="gifs/evasion.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 500px; object-fit: contain;">
+<img src="gifs/evasion.gif" alt="Pursuit and Evade behaviour" style="width: 100%; max-width: 580px; object-fit: contain;">
 
 :::
 :::
@@ -171,12 +208,12 @@ A type of random steering, the character moves randomly within a certain area.
 ::: {.columns}
 ::: {.column}
 
-<img src="gifs/wander.gif" alt="Wander behaviour" style="width: 100%; max-width: 500px; object-fit: contain;">
+<img src="gifs/wander.gif" alt="Wander behaviour" style="width: 100%; max-width: 510px; object-fit: contain;">
 
 :::
 ::: {.column}
 
-<img src="img/wander.png" alt="Wander behaviour" style="width: 100%; max-width: 400px; object-fit: contain;">
+<img src="img/wander.png" alt="Wander behaviour" style="width: 100%; max-width: 430px; object-fit: contain;">
 
 :::
 :::
@@ -193,7 +230,7 @@ The character manoeuvres through the environment by dodging around obstacles, ta
 :::
 ::: {.column}
 
-<img src="img/obstacleavoidance.png" alt="Obstacle Avoidance behaviour" style="width: 100%; max-width: 400px; object-fit: contain;">
+<img src="img/obstacleavoidance.png" alt="Obstacle Avoidance behaviour" style="width: 100%; max-width: 435px; object-fit: contain;">
 
 :::
 :::
@@ -217,10 +254,10 @@ move the character along the path while staying within the specified radius.
 :::
 :::
 
-
 ## Flow Field Following
 
-Directs the motion of characters based on their position within an environment.
+Directs the motion of characters based on their position within an environment. It defines a mapping from a location to a flow vector. It allows for motion specification
+without the use of programming.
 
 
 ::: {.columns}
@@ -236,36 +273,20 @@ Directs the motion of characters based on their position within an environment.
 :::
 :::
 
-## Code Example: Seek
+## Unaligned Collision Avoidance
 
-::: {.code-example}
-```javascript
-function seek(agent, target) {
-  // [Replace with your implementation]
-  const desired = normalize(sub(target, agent.pos));
-  return sub(scale(desired, agent.maxSpeed), agent.vel);
-}
-```
-:::
-
-[Explain the code here.]
-
-## Additional Individual Behaviours
+Tries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck. A collision
+may occur if the distance between the characters is too small.
 
 ::: {.columns}
 ::: {.column}
 
-### Flow Field Following
+<img src="img/collisionavoidance.png" alt="Unaligned Collision Avoidance behaviour" style="width: 100%; max-width: 500px; object-fit: contain;">
 
-Directs the motion of characters based on their position within an environment.
 :::
 :::
 
-### Unaligned Collision Avoidance
-
-Tries to keep the characters which are moving in arbitrary directions from running into each other, by avoiding collisions and avoid being stuck.
-
-# Group Behaviours {.section-divider}
+# Group Behaviors {.section-divider}
 
 Coordinated movement across multiple nearby characters.
 
@@ -289,35 +310,37 @@ The character gains the ability to approach and form a group with other characte
 :::
 :::
 
-## Flocking: Code and Visualization
+::: {.columns}
+::: {.column}
+
+<img src="img/separation.png" alt="Separation behaviour" style="width: 100%; max-width: 300px; object-fit: contain;">
+
+:::
+::: {.column}
+
+<img src="img/alignment.png" alt="Alignment behaviour" style="width: 100%; max-width: 300px; object-fit: contain;">
+
+:::
+::: {.column}
+
+<img src="img/cohesion.png" alt="Cohesion behaviour" style="width: 100%; max-width: 300px; object-fit: contain;">
+
+:::
+:::
+
+## Flocking (also known as Boids)
 
 Flocking simulates the movement of characters that are grouped together, combining Separation, Cohesion, and Alignment behaviors to replicate birds or fish flocks, for example.
 
-::: {.columns .center-v}
-::: {.column}
-::: {.code-example}
-```javascript
-function flock(agent, neighbours) {
-  // [Replace with your implementation]
-  return add(separation(agent, neighbours),
-             alignment(agent, neighbours),
-             cohesion(agent, neighbours));
-}
-```
-:::
-:::
-::: {.column}
-::: {.diagram-placeholder}
-[Diagram: flocking visualization]
-:::
-:::
-:::
+<img src="gifs/flocking.gif" alt="Flocking behaviour" style="width: 100%; max-width: 500px; object-fit: contain;">
 
 ## Leader Following
 
 Makes one or more characters follow another moving character as their leader, staying near them without getting in their way.
 
-# Combining Behaviours {.section-divider}
+<img src="gifs/leaderfollow.gif" alt="Leader Following behaviour" style="width: 100%; max-width: 500px; object-fit: contain;">
+
+# Combining Behaviors {.section-divider}
 
 A character may switch between behavior modes as circumstances change in the game, such as events.
 
@@ -325,13 +348,17 @@ A character may switch between behavior modes as circumstances change in the gam
 
 Some behaviors are commonly blended together and effectively act in parallel. A good example is when an animal NPC is running through the woods escaping a predator: this NPC can use the flee and obstacle avoidance behaviors to navigate effectively.
 
+> Blending is done by calculating the weighted sum of the steering forces produced by each behavior, and then truncating the result to the maximum force allowed.
+
+<br>
+
 ::: {.equation}
 $$\mathbf{F} = \sum_i w_i\,\mathbf{F}_i$$
 :::
 
 # Demonstration {.section-divider}
 
-Interactive steering behaviours in action.
+Interactive steering behaviors in action.
 
 ## Interactive Simulation
 
@@ -345,24 +372,36 @@ Interactive steering behaviours in action.
 
 # Conclusion {.section-divider}
 
-Why use steering behaviours and where they appear in games.
+Why use steering behaviors and where do they appear in games?
 
 ## Summary
 
-- **Performance:** Highly CPU efficient by using simple local mathematics and vector calculations—ideal even for mobile games.
+- **Performance:** Highly CPU efficient by using simple local mathematics and vector calculations — ideal even for mobile games.
 - **Realism:** Movement can be very realistic due to velocity and path changes, with many different NPC actions when behaviors are combined.
-- **Use Cases:** Used across many genres with large numbers of NPCs—Racing (AI opponents/traffic), Driving (AI traffic), Action, Role-Playing, and Open-World games.
+- **Use Cases:** Used across many genres with large numbers of NPCs — Racing (AI opponents/traffic), Driving (AI traffic), Action, Role-Playing, and Open-World games.
 
 ::: {.callout}
-[Closing remark or open question.]
+As you may have noticed, we have been using these types of behaviors in our projects and classes.
 :::
 
 ## References
 
 ::: {.small-text}
-- [Reference 1]
-- [Reference 2]
-- [Reference 3]
+- [1] C. Reynolds, “Steering Behaviors For Autonomous Characters,” Red3d, 1999. https://www.red3d.com/cwr/steer/gdc99/ (accessed Nov. 01, 2026).
+
+- [2] K. Peters, AdvancED ActionScript 3.0 Animation. Friends of Ed/Apress, 2009.
+
+- [3] NCoT Technology, “Steering Behaviours,” NCoT Wiki, Nov. 10, 2026. https://wiki.ncot.uk/Game%20Development/AI%20and%20Pathfinding/Steering%20Behaviours/ (accessed Nov. 10, 2026).
+
+- [4] “Steering Behaviors | Glossary | GDQuest,” Gdquest.com, 2026. https://school.gdquest.com/glossary/steering_behaviors (accessed Nov. 10, 2026).
+
+- [5] J. Perez, “Introduction to Steering Behaviours,” GameDeveloper.com, June 24, 2014. https://www.gamedeveloper.com/design/introduction-to-steering-behaviours
+
+- [6] D. , “Steering Behaviours: Flocking,” Github, Jan. 03, 2014. https://howtorts.github.io/2014/01/03/steering-flocking.html (accessed Nov. 09, 2026).
+
+
 :::
 
 ## Questions? {.center-content}
+
+Thank you for your time!
